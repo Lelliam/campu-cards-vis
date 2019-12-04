@@ -1,0 +1,27 @@
+<template>
+  <div id="function01">
+    <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
+    </Card>
+  </div>
+</template>
+
+<script>
+    export default {
+        name: "AppFunction01",
+        mounted(){
+        },
+        methods:{
+        },
+        components:{
+        }
+    }
+</script>
+
+<style scoped>
+  #function01{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #5787ff;
+  }
+</style>
