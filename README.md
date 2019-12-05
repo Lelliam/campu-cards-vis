@@ -1,47 +1,17 @@
-## 网络安全事件可视分析
 
-### 背景
+## Data Visualization System
 
-### 需求分析
+### 环境配置
 
-```
-%% 语法示例
+> 1.安装git、nodejs、WebStorm
 
-        gantt
+> 2.克隆项目
 
-        dateFormat  YYYY-MM-DD
+> 3.安装MySQL并配置数据库
 
-        title 软件开发甘特图
+> 4.进入控制台终端，在项目server下执行`npm install`安装依赖
 
-        section 设计
+> 5.进入控制台终端，在项目client下执行`npm install`安装依赖
 
-        需求                      :done,    des1, 2014-01-06,2014-01-08
+> 6.在server目录下执行`npm start`启动服务器,在client目录下执行`npm run dev`启动客户端
 
-        原型                      :active,  des2, 2014-01-09, 3d
-
-        UI设计                     :         des3, after des2, 5d
-
-    未来任务                     :         des4, after des3, 5d
-
-        section 开发
-
-        学习准备理解需求                      :crit, done, 2014-01-06,24h
-
-        设计框架                             :crit, done, after des2, 2d
-
-        开发                                 :crit, active, 3d
-
-        未来任务                              :crit, 5d
-
-        耍                                   :2d
-
-    
-
-        section 测试
-
-        功能测试                              :active, a1, after des3, 3d
-
-        压力测试                               :after a1  , 20h
-
-        测试报告                               : 48h
-```
