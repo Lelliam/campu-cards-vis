@@ -1,28 +1,38 @@
 <template>
   <div id="layout">
     <div id="slide-mask" @mouseover="sliderStatus=true"></div>
-    <Drawer title="功能选择" placement="left" :closable="false" v-model="sliderStatus">
+    <Drawer title="功能选择" placement="left" :closable="sliderStatus" v-model="sliderStatus">
       <Menu active-name="1-2" theme="light" width="auto">
-        <MenuItem name="1-1">
-          <Icon type="ios-navigate"></Icon>
-          <span> 消费行为/时空偏好</span>
-        </MenuItem>
-        <MenuItem name="1-2">
-          <Icon type="ios-search"></Icon>
-          <span>各食堂运营情况</span>
-        </MenuItem>
-        <MenuItem name="1-3">
-          <Icon type="ios-settings"></Icon>
-          <span>消费特征与行为轨迹</span>
-        </MenuItem>
-        <MenuItem name="1-4">
-          <Icon type="ios-settings"></Icon>
-          <span>低消费群体</span>
-        </MenuItem>
-        <MenuItem name="1-5">
-          <Icon type="ios-settings"></Icon>
-          <span>个人消费情况</span>
-        </MenuItem>
+        <router-link  to="/function01" >
+          <MenuItem name="1-1">
+            <Icon type="ios-navigate"></Icon>
+            <span> 消费行为/时空偏好</span>
+          </MenuItem>
+        </router-link>
+        <router-link  to="/function02" >
+          <MenuItem name="1-2">
+            <Icon type="ios-search"></Icon>
+            <span>各食堂运营情况</span>
+          </MenuItem>
+        </router-link>
+        <router-link  to="/function03" >
+          <MenuItem name="1-3">
+            <Icon type="ios-settings"></Icon>
+            <span>消费特征与行为轨迹</span>
+          </MenuItem>
+        </router-link>
+        <router-link  to="/function04" >
+          <MenuItem name="1-4">
+            <Icon type="ios-settings"></Icon>
+            <span>低消费群体</span>
+          </MenuItem>
+        </router-link>
+        <router-link  to="/function05" >
+          <MenuItem name="1-5">
+            <Icon type="ios-settings"></Icon>
+            <span>个人消费情况</span>
+          </MenuItem>
+        </router-link>
       </Menu>
     </Drawer>
     <Layout>
@@ -30,7 +40,8 @@
         <h2 class="layout-title">Data&nbsp;&nbsp;&nbsp;Visualization&nbsp;&nbsp;&nbsp;System</h2>
       </Header>
       <Content>
-        <AppContainer></AppContainer>
+        <router-view></router-view>
+        <!--        <AppContainer></AppContainer>-->
       </Content>
       <Footer class="layout-footer-center">2019-2020 &copy; DATA-VIS</Footer>
     </Layout>
@@ -39,6 +50,7 @@
 
 <script>
     import AppContainer from "./AppContainer";
+    import router from '../router/index'
     export default {
         name: "APPLayout",
         data(){
@@ -51,12 +63,22 @@
         components: {
             AppContainer
         }
+        ,router
     }
 </script>
 
 <style scoped>
 
   @import "../common/fonts/font.css";
+
+  a{
+    color:#666
+  }
+
+  .ivu-menu-light.ivu-menu-vertical
+  .ivu-menu-item-active:not(.ivu-menu-submenu):after {
+    background-color: #515a6e;
+  }
 
   .layout{
     background: #f5f7f9;

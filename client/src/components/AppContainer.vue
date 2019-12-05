@@ -28,7 +28,6 @@
 </template>
 
 <script>
-    import APPTest from "./AppPie/APPTest";
     export default {
         name: "AppContainer",
         mounted(){
@@ -36,7 +35,6 @@
         methods:{
         },
         components:{
-            APPTest
         }
     }
 </script>

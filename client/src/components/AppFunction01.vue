@@ -1,6 +1,7 @@
 <template>
   <div id="function01">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
+      消费行为/时空偏好
     </Card>
   </div>
 </template>
@@ -22,6 +23,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #5787ff;
+    background-color: #ff3522;
   }
 </style>

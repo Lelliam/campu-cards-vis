@@ -6,7 +6,6 @@ class MysqlPool {
         this.pool = mysql.createPool({
             //connectionLimit: 100,
             host:'localhost',
-            //host:'10.10.4.133',
             user:'root',
             password:'123456',
             database:'campu_vis',

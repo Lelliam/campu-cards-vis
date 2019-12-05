@@ -1,6 +1,7 @@
 <template>
   <div id="function04">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
+      低消费群体
     </Card>
   </div>
 </template>
@@ -22,6 +23,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #5787ff;
+    background-color: #19ff35;
   }
 </style>

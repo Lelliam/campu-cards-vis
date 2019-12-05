@@ -1,13 +1,14 @@
 <template>
-  <div id="function01">
+  <div id="function02">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
+      各食堂运营情况
     </Card>
   </div>
 </template>
 
 <script>
     export default {
-        name: "AppFunction01",
+        name: "AppFunction02",
         mounted(){
         },
         methods:{
@@ -18,10 +19,10 @@
 </script>
 
 <style scoped>
-  #function01{
+  #function02{
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #5787ff;
+    background-color: #ff9821;
   }
 </style>
