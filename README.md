@@ -7,7 +7,7 @@
 
 > 2.克隆项目
 
-> 3.安装MySQL并配置数据库
+> 3.安装MySQL并配置数据库，数据在server/public/dataset，把数据导入数据库
 
 > 4.进入控制台终端，在项目server下执行`npm install`安装依赖
 

@@ -33,4 +33,10 @@
     text-align: center;
     color: #2c3e50;
   }
+
+  .ivu-card,
+  .ivu-card-body {
+    padding: 0;
+    font-size:12px;
+  }
 </style>
