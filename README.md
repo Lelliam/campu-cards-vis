@@ -14,4 +14,6 @@
 > 5.进入控制台终端，在项目client下执行`npm install`安装依赖
 
 > 6.在server目录下执行`npm start`启动服务器,在client目录下执行`npm run dev`启动客户端
+>
+> test
 
