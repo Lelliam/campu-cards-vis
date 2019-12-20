@@ -24,12 +24,7 @@
 <template>
   <div id="main_container">
     <Card id="card" :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
-      <div id="container">
-        <AppCalendar></AppCalendar>
-        <AppBubble></AppBubble>
-        <AppSankey></AppSankey>
-        <AppTimeLine></AppTimeLine>
-      </div>
+      <div id="container"></div>
     </Card>
   </div>
 </template>

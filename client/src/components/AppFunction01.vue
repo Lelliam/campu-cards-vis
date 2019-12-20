@@ -2,15 +2,16 @@
   <div id="function01">
     <Card id="card" :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
       <div id="container">
-        <AppCalendar></AppCalendar>
         <AppBubble></AppBubble>
         <AppSankey></AppSankey>
-        <AppTimeLine></AppTimeLine>
       </div>
     </Card>
   </div>
 </template>
-
+<!--  <Step title="分析不同专业、不同性别学生消费行为特点与时空偏好" content=" &lt;!&ndash;郑志文&ndash;&gt;-->
+<!--          ① 行为特点（消费综合情况）[早/中/晚][日/周/月][周末]-->
+<!--          ② 时空偏好（就餐时间和地点）[超市/食堂/Other][时变趋势]">-->
+<!--  </Step>-->
 <script>
   import AppBubble from "./Function01/AppBubble";
   import AppSankey from "./Function01/AppSankey";
