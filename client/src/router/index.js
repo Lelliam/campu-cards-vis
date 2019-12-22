@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import AppContainer from "../components/AppContainer";
 import AppFunction01 from "../components/AppFunction01";
 import AppFunction02 from "../components/AppFunction02";
 import AppFunction03 from "../components/AppFunction03";
@@ -14,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'AppContainer',
-      component: AppContainer
+      name: 'AppFunction01',
+      component: AppFunction01
     },
     {
       path: '/function01',

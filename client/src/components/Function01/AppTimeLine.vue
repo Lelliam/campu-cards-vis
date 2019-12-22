@@ -6,7 +6,7 @@
     export default {
         name: "AppTimeLine",
         mounted(){
-            this.init_chart();
+            //this.init_chart();
         },
         methods:{
             init_chart(){
@@ -167,10 +167,11 @@
 <style scoped>
   #time_line{
     position: absolute;
-    bottom: 1%;
+    bottom: 0;
     left: 20%;
-    width: 79%;
-    height: 30%;
+    width: 60%;
+    height: 40%;
+    background-color: #b959ff;
   }
 </style>
 

@@ -28,7 +28,7 @@
 > 门禁记录表 --- access_origin(AccessCardNo,Date,Address,Access)
 >
 >
-```javascript
+```
 //数据查询示例
 mounted(){
     this.init();
@@ -49,11 +49,11 @@ methods:{
 
 ### 分析任务
 （1）分析不同专业、不同性别学生消费行为特点与时空偏好；
-- 行为特点（消费综合情况）[早/中/晚][日/周/月][周末]
-- 时空偏好（就餐时间和地点）[超市/食堂/Other][时变趋势]
+- 行为特点（消费综合情况）早/中/晚/日/周/月/周末
+- 时空偏好（就餐时间和地点）/超市/食堂/Other/时变趋势
 
 性别地点偏好对比  建议用雷达图[Echarts示例](https://gallery.echartsjs.com/editor.html?c=xry6q2gGS7)
-```javascript
+```
         this.$http.get('query', {
           params: {
             sql: `select Sex,Dept from cost_pro`
@@ -66,35 +66,15 @@ methods:{
                   return {Dept: d.key, value: d.values.length,Sex:sex}
                 }).sort((a,b)=>b.value-a.value).slice(0,8);
               }
-          );
+          )
 ```
 
-时序消费行为性别对比 建议用折线图[Echarts示例1](https://gallery.echartsjs.com/editor.html?c=xIsttTbpSh) [示例2](https://gallery.echartsjs.com/editor.html?c=xSJJXiE1Wx)
-```javascript
-        this.$http.get('query', {
-          params: {
-            sql: `select Sex,Date from cost_pro where Sex != 'null'`
-          }
-        }).then(res=>{
-          let format = d3.timeFormat("%Y/%m/%d %H:%M");
-          res.body.forEach(d=>{
-            d.Date = new Date(d.Date);
-            d.Date.setMinutes(d.Date.getMinutes() - d.Date.getMinutes()%10);
-            d.Date = format(d.Date);
-          });
-          let data = d3.nest().key(d=>d.Date).entries(res.body).map(d=>{
-            let male = d.values.filter(d=>d.Sex === '男').length;
-            let female = d.values.filter(d=>d.Sex === '女').length;
-            return {date:d.key,male:male,female:female}
-          });
-          console.log(data);
-```
 （2）评估各食堂的运营状况，为食堂运营提供建议
-- 运营情况（各食堂综合消费）[消费类型][运营时间][对比分析]
+- 运营情况（各食堂综合消费）消费类型、运营时间、对比分析
 - 提供建议（合理定价、运营时间等）
 
 （3）挖掘学生消费特征与日常行为轨迹的关联关系；
-- 关联关系（上课、晨练、）[结合门禁数据]
+- 关联关系（上课、晨练、）结合门禁数据
 - 产生消费的原因分析
 
 （4）探索低消费学生群体的行为特征，为学校助学金评定提供参考建议

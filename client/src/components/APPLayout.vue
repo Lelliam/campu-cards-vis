@@ -49,7 +49,6 @@
 </template>
 
 <script>
-    import AppContainer from "./AppContainer";
     import router from '../router/index'
     export default {
         name: "APPLayout",
@@ -61,7 +60,6 @@
         methods:{
         },
         components: {
-            AppContainer
         }
         ,router
     }
