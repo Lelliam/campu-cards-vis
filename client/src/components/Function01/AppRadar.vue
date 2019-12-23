@@ -23,7 +23,7 @@
               grid: {
                 top: '15%',
                 right: '5%',
-                left: '15%',
+                left: '25%',
                 bottom: '10%'
               },
               legend: {

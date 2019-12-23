@@ -27,45 +27,35 @@
               series: [
                 //第一排
                 {
+                  name:"地点",
                   center: ['5%', '13%'],
                   type:'pie',
                   selectedMode: 'single',
                   radius: [0, '18%'],
-
                   label: {
-                    normal: {
-                      position: 'inner'
-                    }
-                  },
-                  labelLine: {
                     normal: {
                       show: false
                     }
                   },
                   data:[
-                    {value:335},
-                    {value:679},
-                    {value:1548}
+                    {value:335,name:'第一食堂'},
+                    {value:679,name:'第二食堂'},
+                    {value:1548,name:'第三食堂'}
                   ]
                 },
                 {
+                  name:'性别',
                   center: ['5%', '13%'],
                   type:'pie',
                   radius: ['18%', '20%'],
-                  labelLine: {
+                  label: {
                     normal: {
                       show: false
                     }
                   },
                   data:[
-                    {value:335},
-                    {value:310},
-                    {value:234},
-                    {value:135},
-                    {value:1048},
-                    {value:251},
-                    {value:147},
-                    {value:102}
+                    {name:'男',value:335},
+                    {name:'女',value:310},
                   ]
                 },{
                   center: ['15%', '13%'],
