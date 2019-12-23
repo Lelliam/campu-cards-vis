@@ -12,7 +12,7 @@
     methods:{
       init_chart(){
 
-        this.$http.get('query', {
+        /*this.$http.get('query', {
           params: {
             sql: `select * from cost_pro`
           }
@@ -53,9 +53,21 @@
           // console.log(nodes);
           //console.log(d3.extent(res.body,d=>new Date(d.Date)));
           // console.log(res.body);
-          //console.log(d3.max(data,d=>d.values.length));
-
-        });
+          //console.log(d3.max(data,d=>d.values.length));*/
+        //});
+        this.$store.commit('test_state','test1');
+      }
+    },
+    computed:{
+      test_state(){
+        return this.$store.state.test_state;
+      }
+    },
+    watch:{
+      test_state:{
+        handler(value){
+          console.log(value);
+        }
       }
     }
   }
