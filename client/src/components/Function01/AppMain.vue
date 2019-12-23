@@ -25,11 +25,12 @@
                 data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
               },
               series: [
+                //第一排
                 {
-                  name:'访问来源',
+                  center: ['5%', '13%'],
                   type:'pie',
                   selectedMode: 'single',
-                  radius: [0, '30%'],
+                  radius: [0, '18%'],
 
                   label: {
                     normal: {
@@ -42,68 +43,1634 @@
                     }
                   },
                   data:[
-                    {value:335, name:'直达', selected:true},
-                    {value:679, name:'营销广告'},
-                    {value:1548, name:'搜索引擎'}
+                    {value:335},
+                    {value:679},
+                    {value:1548}
                   ]
                 },
                 {
-                  name:'访问来源',
+                  center: ['5%', '13%'],
                   type:'pie',
-                  radius: ['40%', '55%'],
-                  label: {
+                  radius: ['18%', '20%'],
+                  labelLine: {
                     normal: {
-                      formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-                      backgroundColor: '#eee',
-                      borderColor: '#aaa',
-                      borderWidth: 1,
-                      borderRadius: 4,
-                      // shadowBlur:3,
-                      // shadowOffsetX: 2,
-                      // shadowOffsetY: 2,
-                      // shadowColor: '#999',
-                      // padding: [0, 7],
-                      rich: {
-                        a: {
-                          color: '#999',
-                          lineHeight: 22,
-                          align: 'center'
-                        },
-                        // abg: {
-                        //     backgroundColor: '#333',
-                        //     width: '100%',
-                        //     align: 'right',
-                        //     height: 22,
-                        //     borderRadius: [4, 4, 0, 0]
-                        // },
-                        hr: {
-                          borderColor: '#aaa',
-                          width: '100%',
-                          borderWidth: 0.5,
-                          height: 0
-                        },
-                        b: {
-                          fontSize: 16,
-                          lineHeight: 33
-                        },
-                        per: {
-                          color: '#eee',
-                          backgroundColor: '#334455',
-                          padding: [2, 4],
-                          borderRadius: 2
-                        }
-                      }
+                      show: false
                     }
                   },
                   data:[
-                    {value:335, name:'直达'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1048, name:'百度'},
-                    {value:251, name:'谷歌'},
-                    {value:147, name:'必应'},
-                    {value:102, name:'其他'}
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['15%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['15%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['25%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['25%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['35%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['35%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['45%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['45%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['55%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['55%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['65%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['65%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['75%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['75%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['85%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['85%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['95%', '13%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['95%', '13%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },
+                //第二排
+                {
+                  center: ['5%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['5%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['15%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['15%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['25%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['25%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['35%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['35%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['45%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['45%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['55%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['55%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['65%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['65%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['75%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['75%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['85%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['85%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['95%', '38%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['95%', '38%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },
+                //第三排
+                {
+                  center: ['5%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['5%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['15%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['15%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['25%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['25%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['35%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['35%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['45%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['45%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['55%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['55%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['65%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['65%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['75%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['75%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['85%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['85%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['95%', '63%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['95%', '63%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },
+                //第四排
+                {
+                  center: ['5%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['5%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['15%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['15%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['25%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['25%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['35%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['35%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['45%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['45%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['55%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['55%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['65%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['65%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['75%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['75%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['85%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['85%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
+                  ]
+                },{
+                  center: ['95%', '88%'],
+                  type:'pie',
+                  selectedMode: 'single',
+                  radius: [0, '18%'],
+
+                  label: {
+                    normal: {
+                      position: 'inner'
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:679},
+                    {value:1548}
+                  ]
+                },
+                {
+                  center: ['95%', '88%'],
+                  type:'pie',
+                  radius: ['18%', '20%'],
+                  labelLine: {
+                    normal: {
+                      show: false
+                    }
+                  },
+                  data:[
+                    {value:335},
+                    {value:310},
+                    {value:234},
+                    {value:135},
+                    {value:1048},
+                    {value:251},
+                    {value:147},
+                    {value:102}
                   ]
                 }
               ]
