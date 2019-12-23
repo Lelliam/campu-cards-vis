@@ -87,7 +87,7 @@
     left: 65%;
     width: 15%;
     height: 60%;
-    overflow-y:scroll;
+    overflow-y:auto;
     overflow-x: hidden;
   }
 
