@@ -15,7 +15,7 @@
             let chart = this.$echarts.init(document.getElementById('radar'));
 
             let option = {
-              color: ["rgba(0,183,238, 1)", "rgba(86,199,60, 1)"],
+              color: ["rgb(26,199,255)", "rgb(255,104,123)"],
               tooltip: {
                 show: true,
                 trigger: "item"

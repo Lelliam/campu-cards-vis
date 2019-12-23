@@ -12,9 +12,9 @@
     methods:{
       //https://gallery.echartsjs.com/editor.html?c=x3plwvJlaT
       Main(){
-        let major = '18国际金融';
+
         this.$http.get('query',{params:{
-            sql:`select * from cost_pro where Major = ${major}`
+            sql:`select * from cost_pro where Major = '18国际金融'`
           }}).then(res=>{
           console.log(d3.nest().key(d=>d.Sex).entries(res.body).map(d=>{
             return {value:d.values.length}
@@ -72,8 +72,6 @@
   #main_01{
     position: absolute;
     top:0;
-    border-style: dashed;
-    border-width: 1px 0 1px 1px;
     left: 20%;
     width: 45%;
     height: 60%;
