@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  import '../../../static/dataTool.min'
     export default {
         name: "AppPlot",
       mounted(){
