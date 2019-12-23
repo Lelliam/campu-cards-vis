@@ -53,6 +53,5 @@
     right: 0;
     width: 20%;
     height: 60%;
-    background-color: #3e9eff;
   }
 </style>

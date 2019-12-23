@@ -1,30 +1,16 @@
 <template>
-  <div id="main_01"></div>
+<div id="detail"></div>
 </template>
 
 <script>
-  import * as d3 from 'd3'
-  export default {
-    name: "AppMain",
-    mounted() {
-      this.Main();
-    },
-    methods:{
-      //https://gallery.echartsjs.com/editor.html?c=x3plwvJlaT
-      Main(){
-        this.$http.get('query',{params:{
-            sql:`select * from cost_pro where Major = '18国际金融'`
-          }}).then(res=>{
-          console.log(d3.nest().key(d=>d.Sex).entries(res.body).map(d=>{
-            return {value:d.values.length}
-          }));
-          Draw(d3.nest().key(d=>d.Sex).entries(res.body).map(d=>{
-            return {value:d.values.length}
-          }));
-        });
-
-        let Draw = (data)=>{
-          let chart = this.$echarts.init(document.getElementById('main_01'));
+    export default {
+        name: "AppMainDetail",
+      mounted() {
+          this.Draw()
+      },
+      methods:{
+        Draw(){
+          let chart = this.$echarts.init(document.getElementById('detail'));
 
           let option = {
             tooltip: {
@@ -57,24 +43,22 @@
                   {value:102}
                 ]
               }
-              ]
+            ]
           };
           chart.setOption(option);
         }
-
       }
     }
-  }
 </script>
 
 <style scoped>
-  #main_01{
+  #detail{
     position: absolute;
     top:0;
     border-style: dashed;
-    border-width: 1px 0 1px 1px;
-    left: 20%;
-    width: 45%;
+    border-width: 1px 1px 1px 1px;
+    left: 65%;
+    width: 15%;
     height: 60%;
   }
 </style>

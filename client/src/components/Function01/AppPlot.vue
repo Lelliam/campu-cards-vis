@@ -113,6 +113,5 @@
     left: 0;
     width: 20%;
     height: 60%;
-    background-color: #3245ff;
   }
 </style>

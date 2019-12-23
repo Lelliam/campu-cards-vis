@@ -156,6 +156,5 @@
     right: 0;
     width: 20%;
     height: 40%;
-    background-color: #ff3b59;
   }
 </style>
