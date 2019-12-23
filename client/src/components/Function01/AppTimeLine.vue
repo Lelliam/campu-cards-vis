@@ -6,7 +6,7 @@
     export default {
         name: "AppTimeLine",
         mounted(){
-            //this.init_chart();
+            this.init_chart();
         },
         methods:{
             init_chart(){
@@ -42,9 +42,9 @@
                         data: ['A','B']
                     },
                     grid: {
-                        top: '5%',
-                        right: '1%',
-                        left: '1%',
+                        top: '15%',
+                        right: '5%',
+                        left: '5%',
                         bottom: '10%'
                     },
                     xAxis: {
@@ -171,7 +171,6 @@
     left: 20%;
     width: 60%;
     height: 40%;
-    background-color: #b959ff;
   }
 </style>
 
