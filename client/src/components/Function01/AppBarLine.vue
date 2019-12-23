@@ -32,9 +32,6 @@
                   saveAsImage: {show: true}
                 }
               },
-              legend: {
-                data:['蒸发量','降水量','平均温度']
-              },
               xAxis: [
                 {
                   type: 'category',
