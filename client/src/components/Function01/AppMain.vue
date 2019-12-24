@@ -16,9 +16,6 @@
       this.init();
     },
     methods:{
-      //https://gallery.echartsjs.com/editor.html?c=x3plwvJlaT
-      //https://github.com/zhaoweixin/ccf_bdci_trajectory/blob/master/client/src/components/AppMap.vue
-
       init(){
         this.$http.get('query',{params:{
             sql:`select * from students_origin`
@@ -79,7 +76,7 @@
             //formatter: "{a} <br/>{b}: {c} ({d}%)",
             formatter : function(e) {
               if (typeof (e.value)[2] == "undefined") {
-                return e.name;
+                return e.name+':'+e.value+'人';
               } else {
                 return '地点<br>' + e.name + ':' + e.value[2];
               }
