@@ -8,6 +8,7 @@
         <AppBarLine></AppBarLine>
         <AppPlot></AppPlot>
         <AppMatrixTree></AppMatrixTree>
+        <AppMainDetail></AppMainDetail>
       </div>
     </Card>
   </div>
@@ -23,6 +24,7 @@
   import AppBarLine from "./Function01/AppBarLine";
   import AppMatrixTree from "./Function01/AppMatrixTree";
   import AppPlot from "./Function01/AppPlot";
+  import AppMainDetail from "./Function01/AppMainDetail";
     export default {
         name: "AppFunction01",
         mounted(){
@@ -35,7 +37,8 @@
           AppBarLine,
           AppTimeLine,
           AppRadar,
-          AppMain
+          AppMain,
+          AppMainDetail
         }
     }
 </script>
