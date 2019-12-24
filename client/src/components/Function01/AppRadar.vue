@@ -3,13 +3,46 @@
 </template>
 
 <script>
+    import * as d3 from "d3";
     export default {
         name: "AppRadar",
+      data()
+      {
+        return{
+          Male_data:[],
+          Female_data:[]
+        }
+      },
       mounted() {
-          this.Radar();
+          //this.Radar();
+          this.Init();
       },
       methods:{
-          Radar(){
+          Init(Major){
+            this.$http.get('query', {
+              params: {
+                sql: `select students_origin.CardNo,cost_pro.Dept from students_origin,cost_pro where students_origin.Major='18国际金融' and students_origin.Sex='男' and students_origin.CardNo=cost_pro.CardNo`
+              }
+            }).then(res => {
+              console.log(d3.nest().key(d => d.Dept).entries(res.body));
+              this.Male_data = d3.nest().key(d => d.Sex).entries(res.body).map(d => {
+                return {value: d.values.length, name: d.key};
+              });
+            }).then(this.$http.get('query', {
+                params: {
+                  sql: `select students_origin.CardNo,cost_pro.Dept from students_origin,cost_pro where students_origin.Major='18国际金融' and students_origin.Sex='女' and students_origin.CardNo=cost_pro.CardNo`
+                }
+              }).then(res => {
+                this.Female_data = d3.nest().key(d => d.Dept).entries(res.body).map(d => {
+                  return {value: d.values.length, name: d.key};
+                });
+              }).then(this.SendData)
+            );
+          },
+        SendData() {
+          this.Draw(this.Male_data, this.Female_data);
+        },
+        Draw(Male_data,Female_data) {
             let echarts = this.$echarts;
 
             let chart = this.$echarts.init(document.getElementById('radar'));
@@ -23,13 +56,13 @@
               grid: {
                 top: '15%',
                 right: '5%',
-                left: '25%',
-                bottom: '10%'
+                left: '90%',
+                bottom: '15%'
               },
               legend: {
                 show: true,
                 icon: "circle",
-                right: '20%',
+                right: '5%',
                 top: 'center',
                 orient: "vertical",
                 itemGap: 30,
@@ -37,10 +70,10 @@
                   fontSize: 15,
                   color: "#000"
                 },
-                data: ["2016年", "2017年"]
+                data: ["男", "女"]
               },
               radar: {
-                center: ["35%", "50%"],
+                center: ["50%", "50%"],
                 radius: "70%",
                 startAngle: 90,
                 splitNumber: 4,
@@ -72,27 +105,33 @@
                   }
                 },
                 indicator: [{
-                  name: "三无、五保",
-                  max: 88
+                  name: "第一食堂",
+                  max: 5000
+                },{
+                  name: "第二食堂",
+                  max: 5000
+                },{
+                  name: "第三食堂",
+                  max: 5000
                 }, {
-                  name: "低保",
-                  max: 88
+                  name: "第四食堂",
+                  max: 5000
                 }, {
-                  name: "残疾",
-                  max: 88
+                  name: "第五食堂",
+                  max: 5000
                 }, {
-                  name: "失独",
-                  max: 88
-                }, {
-                  name: "高龄",
-                  max: 88
-                }, {
-                  name: "突出贡献",
-                  max: 88
+                  name: "好利来食品店",
+                  max: 5000
+                },{
+                  name: "财务处",
+                  max: 5000
+                },{
+                  name: "红太阳超市",
+                  max: 5000
                 }]
               },
               series: [{
-                name: "2016年",
+                name: "男",
                 type: "radar",
                 symbol: "circle",
                 symbolSize: 10,
@@ -113,10 +152,10 @@
                   }
                 },
                 data: [
-                  [80, 50, 55, 80, 50, 80]
+                  [3800, 4500, 2550, 1800, 4500, 3800]
                 ]
               }, {
-                name: "2017年",
+                name: "女",
                 type: "radar",
                 symbol: "circle",
                 symbolSize: 10,
@@ -139,7 +178,7 @@
                   }
                 },
                 data: [
-                  [60, 60, 65, 60, 70, 40]
+                  [3600, 2600, 4650, 1600, 2500, 4400]
                 ]
               }]
             };
