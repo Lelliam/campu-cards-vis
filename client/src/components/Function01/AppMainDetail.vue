@@ -15,30 +15,61 @@
 </template>
 
 <script>
+  import * as d3 from "d3";
+
   export default {
     name: "AppMainDetail",
     data(){
       return  {
-        list:['X','Y','Z']
+        list:['X','Y','Z'],
+        sex_data:[],
+        place_data:[]
       }
     },
     mounted() {
-      //this.Draw()
+      this.Init();
     },
-    methods:{
-      handleAdd () {
+    methods: {
+      handleAdd() {
         if (this.list.length) {
           this.list.push(this.list[this.list.length - 1] + 1);
         } else {
           this.list.push(0);
         }
       },
-      close(name){
+      close(name) {
 
         const index = this.list.indexOf(name);
         this.list.splice(index, 1);
       },
-      Draw(){
+      Init(Major) {
+        this.$http.get('query', {
+          params: {
+            sql: `select * from students_origin where Major='18国际金融'`
+          }
+        }).then(res => {
+          this.sex_data = d3.nest().key(d => d.Sex).entries(res.body).map(d => {
+            return {value: d.values.length, name: d.key};
+          });
+        }).then(this.$http.get('query', {
+            params: {
+              sql: `select students_origin.CardNo,cost_pro.Dept from students_origin,cost_pro where students_origin.Major='18国际金融' and students_origin.CardNo=cost_pro.CardNo`
+            }
+          }).then(res => {
+            console.log(d3.nest().key(d => d.Dept).entries(res.body));
+            this.place_data = d3.nest().key(d => d.Dept).entries(res.body).map(d => {
+              return {value: d.values.length, name: d.key};
+            });
+          }).then(this.SendData)
+        );
+      },
+      SendData() {
+        this.Draw(this.sex_data, this.place_data);
+        //console.log(this.place_data.values());
+      },
+
+
+      Draw(sex_data,place_data){
         let chart = this.$echarts.init(document.getElementById('detail'));
 
         let option = {
@@ -46,31 +77,40 @@
             trigger: 'item',
             formatter: "{a} <br/>{b}: {c} ({d}%)"
           },
-          legend: {
-            orient: 'vertical',
-            x: 'left',
-            data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
-          },
           series: [
             {
+              name:'性别',
               center: ['50%', '50%'],
-              type:'pie',
+              type: 'pie',
               radius: ['55%', '70%'],
               labelLine: {
                 normal: {
                   show: false
                 }
               },
-              data:[
-                {value:335},
-                {value:310},
-                {value:234},
-                {value:135},
-                {value:1048},
-                {value:251},
-                {value:147},
-                {value:102}
-              ]
+              label: {
+                normal: {
+                  show: false
+                }
+              },
+              data: sex_data
+            },{
+              name:'地点',
+              type:'pie',
+              selectedMode: 'single',
+              radius: [0, '55%'],
+
+              label: {
+                normal: {
+                  show: false
+                }
+              },
+              labelLine: {
+                normal: {
+                  show: false
+                }
+              },
+              data:place_data
             }
           ]
         };
