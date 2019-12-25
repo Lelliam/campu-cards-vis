@@ -19,7 +19,7 @@
       },
       methods: {
 
-          Init(Dept = '第二食堂'){
+          Init(Dept = '教师食堂'){
             this.$http.get('query',{params:{
               sql:`select TermNo from cost_pro where Dept = '${Dept}'`
               }
