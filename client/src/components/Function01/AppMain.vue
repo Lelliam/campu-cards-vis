@@ -26,7 +26,7 @@
         }).then(this.$http.get('query',{params:{
             sql:`select Dept from cost_pro`
           }}).then(res=>{
-            console.log(d3.nest().key(d=>d.Dept).entries(res.body));
+            //console.log(d3.nest().key(d=>d.Dept).entries(res.body));
           this.place_data = d3.nest().key(d=>d.Dept).entries(res.body).map(d=>{
             return {value:d.values.length,name:d.key};
           });
@@ -35,7 +35,7 @@
       },
       SendData(){
         this.Draw(this.major_number,this.place_data);
-        console.log(this.place_data.values());
+        //console.log(this.place_data.values());
       },
       Draw(major_number,place_data){
         let chart = this.$echarts.init(document.getElementById('main_01'));

@@ -56,7 +56,7 @@
               sql: `select students_origin.CardNo,cost_pro.Dept from students_origin,cost_pro where students_origin.Major='18国际金融' and students_origin.CardNo=cost_pro.CardNo`
             }
           }).then(res => {
-            console.log(d3.nest().key(d => d.Dept).entries(res.body));
+            //console.log(d3.nest().key(d => d.Dept).entries(res.body));
             this.place_data = d3.nest().key(d => d.Dept).entries(res.body).map(d => {
               return {value: d.values.length, name: d.key};
             });
