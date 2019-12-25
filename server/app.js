@@ -7,14 +7,22 @@ let cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var function01 = require('./routes/function01');
+var function02 = require('./routes/function02');
+var function03 = require('./routes/function03');
+var function04 = require('./routes/function04');
+var function05 = require('./routes/function05');
 
 var app = express();
 
 app.use(cors())
 
 // view engine setup
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.engine('.html', require('ejs').__express);
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,6 +31,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/', function01);
+app.use('/', function02);
+app.use('/', function03);
+app.use('/', function04);
+app.use('/', function05);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
@@ -38,7 +51,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render(`_errors/${err.status}`);
 });
 
 module.exports = app;

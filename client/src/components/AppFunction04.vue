@@ -1,7 +1,7 @@
 <template>
   <div id="function04">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
-      低消费群体
+
     </Card>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-      <Card v-for="i in list" :key="i" :style="{margin: '10px',minHeight: '250px'}">
+      <Card v-for="(i,d) in list" :key="i" :style="{margin: '10px',minHeight: '250px'}">
         <p slot="title">
           <Icon type="ios-film-outline"></Icon>
           专业名称{{i}}
@@ -9,69 +9,43 @@
           <Icon type="ios-loop-strong"></Icon>
           X
         </a>
+        <div class="major_detail" :id="'major'+d"></div>
       </Card>
-
   </div>
 </template>
 
 <script>
   import * as d3 from "d3";
-
   export default {
     name: "AppMainDetail",
     data(){
       return  {
-        list:['X','Y','Z'],
+        list:['18市场营销','18软件技术'],
         sex_data:[],
         place_data:[]
       }
     },
     mounted() {
-      this.Init();
+      //this.Init();
     },
     methods: {
-      handleAdd() {
-        if (this.list.length) {
-          this.list.push(this.list[this.list.length - 1] + 1);
-        } else {
-          this.list.push(0);
-        }
+      getSex(major){
+        return this.$axios.get('major_sex',{params:{
+            major:major
+          }});
       },
-      close(name) {
-
-        const index = this.list.indexOf(name);
-        this.list.splice(index, 1);
+      getMajorDept(major){
+        return this.$axios.get('major_dept',{params:{
+            major:major
+          }});
       },
-      Init(Major) {
-        this.$http.get('query', {
-          params: {
-            sql: `select * from students_origin where Major='18国际金融'`
-          }
-        }).then(res => {
-          this.sex_data = d3.nest().key(d => d.Sex).entries(res.body).map(d => {
-            return {value: d.values.length, name: d.key};
-          });
-        }).then(this.$http.get('query', {
-            params: {
-              sql: `select students_origin.CardNo,cost_pro.Dept from students_origin,cost_pro where students_origin.Major='18国际金融' and students_origin.CardNo=cost_pro.CardNo`
-            }
-          }).then(res => {
-            //console.log(d3.nest().key(d => d.Dept).entries(res.body));
-            this.place_data = d3.nest().key(d => d.Dept).entries(res.body).map(d => {
-              return {value: d.values.length, name: d.key};
-            });
-          }).then(this.SendData)
-        );
+      SendData(major = '18软件技术',id) {
+        this.$axios.all([this.getSex(major),this.getMajorDept(major)]).then(this.$axios.spread((res1,res2)=>{
+          this.Draw(res1.data,res2.data,id);
+        }));
       },
-      SendData() {
-        this.Draw(this.sex_data, this.place_data);
-        //console.log(this.place_data.values());
-      },
-
-
-      Draw(sex_data,place_data){
-        let chart = this.$echarts.init(document.getElementById('detail'));
-
+      Draw(sex_data,place_data,id){
+        let chart = this.$echarts.init(document.getElementById('major'+id));
         let option = {
           tooltip: {
             trigger: 'item',
@@ -86,6 +60,11 @@
               labelLine: {
                 normal: {
                   show: false
+                }
+              },
+              itemStyle:{
+                normal:{
+                  color:(params)=>['#6cb7ff','#ff3b59'][params.dataIndex]
                 }
               },
               label: {
@@ -115,6 +94,25 @@
           ]
         };
         chart.setOption(option);
+      },
+      close(name) {
+        this.list.splice(this.list.indexOf(name), 1);
+      },
+    },
+    computed:{
+      major_list(){
+        return this.$store.state.major_list;
+      }
+    },
+    watch:{
+      major_list:{
+        handler(value){
+          //console.log(value);
+          this.list = value;
+          this.list.forEach((d,i)=>{
+            this.SendData(d,i);
+          });
+        }
       }
     }
   }
@@ -135,5 +133,11 @@
     position: relative;
     width: 100%;
     height: 100px;
+  }
+
+  .major_detail{
+    position: absolute;
+    width: 100%;
+    height: 80%;
   }
 </style>

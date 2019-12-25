@@ -9,7 +9,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   // 定义状态
   state: {
-    test_state: 'test'
+    test_state: 'test',
+    major_list: ['18市场营销','18软件技术']
   },
   mutations: mutation,
   actions: action,
