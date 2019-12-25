@@ -57,15 +57,6 @@
             let info2 = {
               'children': []
             };
-            // info2.children.push({
-            //   'asset_num': 50000,
-            //   'name': '5~10岁',
-            //   itemStyle: {
-            //     normal: {
-            //       color: '#c73437',
-            //     }
-            //   },
-            // });
             function Add_data(children,Cost_kinds)
             {
               for(let i in Cost_kinds){
@@ -98,19 +89,17 @@
                   delete tmp.children;
                 }
                 structs_datas.push(tmp);
-                // return structs_datas;
-
               }
 
             }
 
             function showMenu(param) {
               // 可在此处添加右击操作内容
-              console.log('showMenu==============', param);
+              //console.log('showMenu==============', param);
               let event = param.event;
               let pageX = event.offsetX;
               let pageY = event.offsetY;
-              console.log('showMenu========', pageX, pageY);
+             // console.log('showMenu========', pageX, pageY);
 
             }
             format_struct_data(info2.children, structs_datas);
@@ -132,7 +121,7 @@
               tooltip: {
 
                 formatter: function(info) {
-                  console.log('tool------', info);
+                 // console.log('tool------', info);
                   let asset_num = info.data.asset_num;
                   let name = info.name;
                   return [
@@ -160,7 +149,7 @@
                     show: true,
                     position: 'insideTopLeft',
                     formatter: function(a) {
-                      console.log('formatter==label=======', a);
+                     // console.log('formatter==label=======', a);
                       //return '{name|' + a.name + '}' + "\n\n" + "{basic|平均价格 : " + a.data.asset_num  + '㎡/元}';
 
                     },
