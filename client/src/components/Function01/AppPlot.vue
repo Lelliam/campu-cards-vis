@@ -11,10 +11,8 @@
       },
       methods:{
         Plot(){
-          let echarts = this.$echarts;
-
           let chart = this.$echarts.init(document.getElementById('plot'));
-          let data = echarts.dataTool.prepareBoxplotData([
+          let data = this.$echarts.dataTool.prepareBoxplotData([
             [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],
             [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],
             [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],
