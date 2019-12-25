@@ -119,6 +119,6 @@
     left: 0%;
     width: 20%;
     height: 40%;
-    background-color: #1ac7ff;
+//    background-color: #1ac7ff;
   }
 </style>

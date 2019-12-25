@@ -9,8 +9,7 @@
     data()
     {
       return{
-        Male_data:[],
-        Female_data:[]
+        Place_data:[]
       }
     },
     mounted() {
@@ -36,20 +35,17 @@
           "红太阳超市"
           ];
           let data = res.body.filter(d=>Dept.includes(d.Dept));
-          this.Female_data = d3.nest().key(d => d.Sex).entries(data).map(d => {
+          this.Place_data = d3.nest().key(d => d.Sex).entries(data).map(d => {
             return {sex:d.key, data:d3.nest().key(d=>d.Dept).entries(d.values).map(d=>{
                 return {Dept:d.key,value:d.values.length}
               }).sort((a,b)=>Dept.indexOf(a.Dept)-Dept.indexOf(b.Dept))}
           });
           // console.log(this.Female_data);
-          this.Draw();
-          console.log(this.Female_data);
+          this.Draw(this.Place_data);
+          //console.log();
         });
       },
-      SendData() {
-        //this.Draw(this.Male_data, this.Female_data);
-      },
-      Draw(Male_data,Female_data) {
+      Draw(Place_data) {
 
         let chart = this.$echarts.init(document.getElementById('radar'));
 
@@ -112,28 +108,28 @@
             },
             indicator: [{
               name: "第一食堂",
-              max: 5000
+              max: 2000
             },{
               name: "第二食堂",
-              max: 5000
+              max: 2000
             },{
               name: "第三食堂",
-              max: 5000
+              max: 2000
             }, {
               name: "第四食堂",
-              max: 5000
+              max: 2000
             }, {
               name: "第五食堂",
-              max: 5000
+              max: 2000
             }, {
               name: "好利来食品店",
-              max: 5000
+              max: 2000
             },{
               name: "财务处",
-              max: 5000
+              max: 2000
             },{
               name: "红太阳超市",
-              max: 5000
+              max: 2000
             }]
           },
           series: [{
@@ -157,9 +153,10 @@
                 width: 2
               }
             },
-            data: [
-              [3800, 4500, 2550, 1800, 4500, 2000,3000,555]
-            ]
+            data:[[Place_data[0].data[0].value,Place_data[0].data[1].value,
+              Place_data[0].data[2].value,Place_data[0].data[3].value,
+              Place_data[0].data[4].value,Place_data[0].data[5].value,
+              Place_data[0].data[6].value,Place_data[0].data[7].value]]
           }, {
             name: "女",
             type: "radar",
@@ -183,9 +180,10 @@
                 width: 2,
               }
             },
-            data: [
-              [3600, 2600, 4650, 1600, 2500, 4400]
-            ]
+            data:[[Place_data[1].data[0].value,Place_data[1].data[1].value,
+              Place_data[1].data[2].value,Place_data[1].data[3].value,
+              Place_data[1].data[4].value,Place_data[1].data[5].value,
+              Place_data[1].data[6].value,Place_data[1].data[7].value]]
           }]
         };
         chart.setOption(option);

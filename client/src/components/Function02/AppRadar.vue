@@ -69,6 +69,6 @@
     right: 0;
     width: 20%;
     height: 40%;
-    background-color: #3685ff;
+   // background-color: #3685ff;
   }
 </style>
