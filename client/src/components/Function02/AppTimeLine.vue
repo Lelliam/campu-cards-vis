@@ -171,6 +171,6 @@
     left: 20%;
     width: 60%;
     height: 40%;
-    background-color: #8284ff;
+   // background-color: #8284ff;
   }
 </style>

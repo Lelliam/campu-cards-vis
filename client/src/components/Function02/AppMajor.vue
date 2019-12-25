@@ -221,6 +221,6 @@
     left: 0%;
     width: 20%;
     height: 30%;
-    background-color: #42ffca;
+   // background-color: #42ffca;
   }
 </style>
