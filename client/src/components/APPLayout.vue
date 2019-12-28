@@ -60,8 +60,8 @@
         methods:{
         },
         components: {
-        }
-        ,router
+        },
+      router
     }
 </script>
 

@@ -13,15 +13,14 @@
                 let chart = this.$echarts.init(document.getElementById('major'));
 
                 let option = {
-                    backgroundColor: '#fff',
-
+                    //backgroundColor: '#fff',
                     tooltip: {},
                     animationDurationUpdate: function(idx) {
                         // 越往后的数据延迟越大
                         return idx * 100;
                     },
                     animationEasingUpdate: 'bounceIn',
-                    color: ['#fff', '#fff', '#fff'],
+                    //color: ['#fff', '#fff', '#fff'],
                     series: [{
                         type: 'graph',
                         layout: 'force',
@@ -29,7 +28,7 @@
                             repulsion: 500,
                             edgeLength: 10
                         },
-                        roam: true,
+                        //roam: true,
                         label: {
                             normal: {
                                 show: true
@@ -221,6 +220,6 @@
     left: 0%;
     width: 20%;
     height: 30%;
-   // background-color: #42ffca;
+    /*background-color: #42ffca;*/
   }
 </style>

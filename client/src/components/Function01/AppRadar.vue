@@ -47,8 +47,10 @@
       },
       Draw(Place_data) {
 
+
         let chart = this.$echarts.init(document.getElementById('radar'));
 
+        let max = d3.max(Place_data,d=>d.value);
         let option = {
           color: ["rgb(26,199,255)", "rgb(255,104,123)"],
           tooltip: {
@@ -108,28 +110,28 @@
             },
             indicator: [{
               name: "第一食堂",
-              max: 2000
+              max: max
             },{
               name: "第二食堂",
-              max: 2000
+              max: max
             },{
               name: "第三食堂",
-              max: 2000
+              max: max
             }, {
               name: "第四食堂",
-              max: 2000
+              max: max
             }, {
               name: "第五食堂",
-              max: 2000
+              max: max
             }, {
               name: "好利来食品店",
-              max: 2000
+              max: max
             },{
               name: "财务处",
-              max: 2000
+              max: max
             },{
               name: "红太阳超市",
-              max: 2000
+              max: max
             }]
           },
           series: [{
@@ -143,7 +145,7 @@
               }
             },
             itemStyle:{
-              color:'rgba(86,199,60, 1)',
+              color:'#ff3b59',
               borderColor:'rgba(86,199,60, 0.3)',
               borderWidth:10,
             },
@@ -164,7 +166,7 @@
             symbolSize: 10,
             itemStyle: {
               normal: {
-                color:'rgba(0,183,238, 1)',
+                color:'#6cb7ff',
                 borderColor: "rgba(0,183,238, 0.4)",
                 borderWidth: 10
               }

@@ -81,9 +81,9 @@
               let teacher_Result = {}
               for(let i = 0;i<teacher.length;i++){
                 if(teacher_Result[teacher[i].name]){
-                  teacher_Result[teacher[i].name]+=teacher[i].value;
+                  teacher_Result[teacher[i].name]+=parseFloat(teacher[i].value);
                 }else{
-                  teacher_Result[teacher[i].name]=teacher[i].value;
+                  teacher_Result[teacher[i].name]=parseFloat(teacher[i].value);
                 }
               }
               console.log(teacher_Result)
@@ -178,25 +178,7 @@
                         name: '',
                         value: '100.00'
                     }],
-                    dataLL: [{
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '300.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '500.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }],
+                    dataLL: keyvalue
                 };
                 let option = {
                     // backgroundColor: '#05274C',

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  import * as d3 from "d3";
   export default {
     name: "AppMainDetail",
     data(){
@@ -46,6 +45,7 @@
       },
       Draw(sex_data,place_data,id){
         let chart = this.$echarts.init(document.getElementById('major'+id));
+
         let option = {
           tooltip: {
             trigger: 'item',
@@ -76,8 +76,9 @@
             },{
               name:'地点',
               type:'pie',
+              roseType : 'radius',
               selectedMode: 'single',
-              radius: [0, '55%'],
+              radius: [0, '45%'],
 
               label: {
                 normal: {
@@ -97,6 +98,7 @@
       },
       close(name) {
         this.list.splice(this.list.indexOf(name), 1);
+        this.$store.commit('major_list',this.list);
       },
     },
     computed:{
