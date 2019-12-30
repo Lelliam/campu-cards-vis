@@ -13,45 +13,57 @@
                 let chart = this.$echarts.init(document.getElementById('radar'));
                 let option = {
                     title: {
-                        text: '基础雷达图'
+                        text: '各食堂各时刻就餐人数'
                     },
                     tooltip: {},
-                    legend: {
-                        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-                    },
+
                     radar: {
-                        // shape: 'circle',
+                         shape: 'circle',
+
                         name: {
                             textStyle: {
                                 color: '#fff',
                                 backgroundColor: '#999',
                                 borderRadius: 3,
-                                padding: [3, 5]
+                                padding: [3, 4]
                             }
                         },
                         indicator: [
-                            { name: '销售（sales）', max: 6500},
-                            { name: '管理（Administration）', max: 16000},
-                            { name: '信息技术（Information Techology）', max: 30000},
-                            { name: '客服（Customer Support）', max: 38000},
-                            { name: '研发（Development）', max: 52000},
-                            { name: '市场（Marketing）', max: 25000},
-                            { name: '陈浩（sales）', max: 3800},
-                            { name: '陈佳文（sales）', max: 4300}
+                            { name: '0', max: 10000},
+                            { name: '21', max: 10000},
+                            { name: '18', max: 10000},
+                            { name: '15', max: 10000},
+                            { name: '12', max: 10000},
+                            { name: '9', max: 10000},
+                            { name: '6', max: 10000},
+                            { name: '3', max: 10000}
                         ]
                     },
                     series: [{
-                        name: '预算 vs 开销（Budget vs spending）',
                         type: 'radar',
-                        // areaStyle: {normal: {}},
+                        //areaStyle: {normal: {}},
+
+                        //s数据为每个时刻每个食堂的就餐人数
                         data : [
                             {
-                                value : [4300, 10000, 28000, 35000, 50000, 19000,1500,4200],
-                                name : '预算分配（Allocated Budget）'
+                                value : [9500, 9500, 9500, 9500, 9500, 9500,9500,9500],
+                                name : '第一食堂'
                             },
                             {
-                                value : [5000, 14000, 28000, 31000, 42000, 21000,1400,3200],
-                                name : '实际开销（Actual Spending）'
+                                value : [8000, 8000, 8000, 8000, 8000, 8000,8000,8000],
+                                name : '第二食堂'
+                            },{
+                                value : [7000, 7000, 7000, 7000, 7000, 7000,7000,7000],
+                                name : '第三食堂'
+                            },{
+                                value : [6000, 6000, 6000, 6000, 6000, 6000,6000,6000],
+                                name : '第四食堂'
+                            },{
+                                value : [5000, 5000, 5000, 5000, 5000, 5000,5000,5000],
+                                name : '第五食堂'
+                            },{
+                                value : [4000, 4000, 4000, 4000, 4000, 4000,4000,4000],
+                                name : '教师食堂'
                             }
                         ]
                     }]

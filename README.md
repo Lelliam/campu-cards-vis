@@ -1,4 +1,4 @@
-
+ 
 ## Data Visualization System
 
 ### 环境配置
@@ -16,7 +16,7 @@
 > 6.在server目录下执行`npm start`启动服务器,在client目录下执行`npm run dev`启动客户端
 >
 ### 数据库信息
-
+ 
 *原始数据表*
 >
 > 学生信息表 --- students_origin(CardNo,Sex,Major,AccessCardNo)

@@ -13,14 +13,27 @@
                 let chart = this.$echarts.init(document.getElementById('major'));
 
                 let option = {
-                    //backgroundColor: '#fff',
+                    backgroundColor: '#e6eefc',
+
+                    title: {
+                        top: '0',
+                        left: 'center',
+                        text: '专业份数',
+                        textStyle: {
+                            align: 'center',
+                            color: '#060204',
+                            fontSize: 15
+                        }
+
+                    },
+
                     tooltip: {},
                     animationDurationUpdate: function(idx) {
                         // 越往后的数据延迟越大
                         return idx * 100;
                     },
                     animationEasingUpdate: 'bounceIn',
-                    //color: ['#fff', '#fff', '#fff'],
+                    color: ['#ff598f', '#3e33ff', '#3cff4c'],
                     series: [{
                         type: 'graph',
                         layout: 'force',
@@ -28,154 +41,14 @@
                             repulsion: 500,
                             edgeLength: 10
                         },
-                        //roam: true,
+                        roam: true,
                         label: {
                             normal: {
                                 show: true
                             }
                         },
-                        data: [{
-                            "name": "考研",
-                            "value": 10000,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(27, 94, 93)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(27, 94, 93)",
-                                    "color": "rgb(27, 94, 93)"
-                                }
-                            }
-                        }, {
-                            "name": "兼职",
-                            "value": 6181,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(206, 188, 11)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(206, 188, 11)",
-                                    "color": "rgb(206, 188, 11)"
-                                }
-                            }
-                        }, {
-                            "name": "食堂",
-                            "value": 4386,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(165, 190, 198)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(165, 190, 198)",
-                                    "color": "rgb(165, 190, 198)"
-                                }
-                            }
-                        }, {
-                            "name": "家教",
-                            "value": 4055,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(98, 41, 72)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(98, 41, 72)",
-                                    "color": "rgb(98, 41, 72)"
-                                }
-                            }
-                        }, {
-                            "name": "大四",
-                            "value": 2467,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(175, 20, 143)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(175, 20, 143)",
-                                    "color": "rgb(175, 20, 143)"
-                                }
-                            }
-                        }, {
-                            "name": "研友",
-                            "value": 2244,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(77, 231, 55)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(77, 231, 55)",
-                                    "color": "rgb(77, 231, 55)"
-                                }
-                            }
-                        }, {
-                            "name": "论文",
-                            "value": 1898,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(26, 83, 246)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(26, 83, 246)",
-                                    "color": "rgb(26, 83, 246)"
-                                }
-                            }
-                        }, {
-                            "name": "专接本",
-                            "value": 1484,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(155, 118, 127)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(155, 118, 127)",
-                                    "color": "rgb(155, 118, 127)"
-                                }
-                            }
-                        }, {
-                            "name": "招聘",
-                            "value": 1112,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(116, 207, 18)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(116, 207, 18)",
-                                    "color": "rgb(116, 207, 18)"
-                                }
-                            }
-                        }, {
-                            "name": "讲座",
-                            "value": 965,
-                            "symbolSize": 100,
-                            "draggable": true,
-                            "itemStyle": {
-                                "normal": {
-                                    "borderColor": "rgb(98, 224, 224)",
-                                    "borderWidth": 4,
-                                    "shadowBlur": 100,
-                                    "shadowColor": "rgb(98, 224, 224)",
-                                    "color": "rgb(98, 224, 224)"
-                                }
-                            }
-                        }, {
-                            "name": "图书馆",
+                        data: [  {
+                            "name": "专业1",
                             "value": 847,
                             "symbolSize": 100,
                             "draggable": true,
@@ -189,17 +62,18 @@
                                 }
                             }
                         }, {
-                            "name": "租房",
+                            "name": "专业2",
+                            //值从外界引入
                             "value": 582,
                             "symbolSize": 100,
                             "draggable": true,
                             "itemStyle": {
                                 "normal": {
-                                    "borderColor": "rgb(81, 27, 15)",
+                                    "borderColor": "rgb(131,252,201)",
                                     "borderWidth": 4,
                                     "shadowBlur": 100,
-                                    "shadowColor": "rgb(81, 27, 15)",
-                                    "color": "rgb(81, 27, 15)"
+                                    "shadowColor": "rgb(131,252,201)",
+                                    "color": "rgb(131,252,201)"
                                 }
                             }
                         }]

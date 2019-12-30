@@ -182,6 +182,8 @@
                 };
                 let option = {
                     // backgroundColor: '#05274C',
+
+
                     color: ['#2AC9FD', '#76FBC0', '#35C96E', '#FCC708', '#48B188', '#5957C2', '#4A5D73'],
 
                     title: [{

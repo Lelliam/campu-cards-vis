@@ -12,23 +12,30 @@
       Draw(data){
 
         let chart = this.$echarts.init(document.getElementById('time_line'));
-        let xData = ["2019-03-01", "2019-03-02", "2019-03-03", "2019-03-04", "2019-03-05", "2019-03-06", "2019-03-07", "2019-03-08", "2019-03-09", "2019-03-10", "2019-03-11", "2019-03-12", "2019-03-13", "2019-03-14", "2019-03-15", "2019-03-16", "2019-03-17", "2019-03-18", "2019-03-19", "2019-03-20"];
+
+        //如果是十分钟折线图，那么横坐标就没多少意义了
+        let xData = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
         let yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
         let yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16];
+        let yData3 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
+        let yData4 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
+        let yData5 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
+        let yData6 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
 
         let option = {
           title: {
             top: '0',
             left: 'center',
-            text: '坐席电话统计',
+            text: '各食堂消费次数与时间的关系（时间间隔10min）',
             textStyle: {
               align: 'center',
-              color: '#FFFFFF',
-              fontSize: 22,
+              color: '#ff86ac',
+              fontSize: 15
             }
 
           },
-          backgroundColor: '#043491',
+            //视图主要背景
+            // backgroundColor: '#043491',
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -39,11 +46,11 @@
             x: 'center',
             y: '40px',
             textStyle: {
-              color: '#f2f2f2',
+              color: '#f23a5d',
               fontSize: 13,
             },
             icon: 'circle',
-            data: ['呼入量', '呼出量']
+            data: ['第一食堂', '第二食堂','第三食堂','第四食堂','第五食堂','教师食堂']
           },
           dataZoom: [{
             type: 'slider',
@@ -75,11 +82,11 @@
             data: xData,
             name: '时间',
             nameTextStyle: {
-              color: '#d4ffff'
+              color: '#2314ff'
             },
             axisLine: {
               lineStyle: {
-                color: '#0B4CA9'
+              color: '#0B4CA9'
               }
             },
             axisTick: {
@@ -105,6 +112,7 @@
             axisLine: {
               lineStyle: {
                 color: '#0B4CA9'
+
               }
             },
             splitLine: {
@@ -119,7 +127,7 @@
             }
           }, ],
           series: [{
-            name: '呼入量',
+            name: '第一食堂',
             type: 'line',
             yAxisIndex: 0,
             symbolSize: 12,
@@ -131,7 +139,7 @@
             data: yData1
           },
             {
-              name: '呼出量',
+              name: '第二食堂',
               type: 'line',
               yAxisIndex: 0,
               symbolSize: 12,
@@ -141,7 +149,55 @@
                 }
               },
               data: yData2
-            }
+            },
+              {
+              name: '第三食堂',
+              type: 'line',
+              yAxisIndex: 0,
+              symbolSize: 12,
+              itemStyle: {
+                  normal: {
+                      color: '#83fcc9',
+                  }
+              },
+              data: yData3
+          },
+           {
+              name: '第四食堂',
+              type: 'line',
+              yAxisIndex: 0,
+              symbolSize: 12,
+              itemStyle: {
+                  normal: {
+                      color: '#3539fc',
+                  }
+              },
+              data: yData4
+          },
+            {
+              name: '第五食堂',
+              type: 'line',
+              yAxisIndex: 0,
+              symbolSize: 12,
+              itemStyle: {
+                  normal: {
+                      color: '#e6eefc',
+                  }
+              },
+              data: yData5
+          },
+            {
+              name: '教师食堂',
+              type: 'line',
+              yAxisIndex: 0,
+              symbolSize: 12,
+              itemStyle: {
+                  normal: {
+                      color: '#55fc27',
+                  }
+              },
+              data: yData6
+          },
 
           ]
         };

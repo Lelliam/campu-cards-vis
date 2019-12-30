@@ -13,6 +13,19 @@
                 let chart = this.$echarts.init(document.getElementById('sex'));
 
                 let option = {
+                    title: {
+                        top: '0',
+                        left: 'center',
+                        text: '男女就餐人数',
+                        textStyle: {
+                            align: 'center',
+                            color: '#060204',
+                            fontSize: 15
+                        }
+
+                    },
+
+
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -26,13 +39,14 @@
                         {
                             name:'访问来源',
                             type:'pie',
-                            radius: ['50%', '70%'],
+                            radius: ['30%', '60%'],
                             avoidLabelOverlap: false,
                             label: {
                                 normal: {
                                     show: false,
                                     position: 'center'
                                 },
+                                //对圆圈里的字进行格式调整
                                 emphasis: {
                                     show: true,
                                     textStyle: {
@@ -48,7 +62,7 @@
                             },
                             data:[
 
-                                {value:135, name:'男'},
+                                {value:1350, name:'男'},
                                 {value:1548, name:'女'}
                             ]
                         }
