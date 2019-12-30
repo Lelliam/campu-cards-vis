@@ -1,11 +1,23 @@
 <template>
-<div id="info"></div>
+   <div id="info"></div>
 </template>
 
+
 <script>
-    export default {
-        name: "AppInfo"
-    }
+  export default {
+    name: "AppInfo",
+    mounted() {
+      this.init();
+    },
+    methods:{
+      init(){
+        let chart = this.$echarts.init(document.getElementById('info'));
+
+        let option = {}
+    chart.setOption(option);
+  }
+  }
+  }
 </script>
 
 <style scoped>
@@ -15,6 +27,6 @@
     left: 0;
     width: 25%;
     height: 35%;
-    background-color: #ffde77;
+
   }
 </style>

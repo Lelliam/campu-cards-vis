@@ -1,6 +1,7 @@
 <template>
-  <div id="calendar"></div>
+<div id="calendar"></div>
 </template>
+
 
 <script>
   export default {
@@ -11,7 +12,7 @@
     methods:{
       init_chart(){
         let getVirtulData = (year) => {
-          let echarts = this.$echarts;
+          let echarts = this.$echarts;//引入echarts
           year = year || '2017';
           let date = +echarts.number.parseDate(year + '-01-01');
           let end = +echarts.number.parseDate((+year + 1) + '-01-01');
@@ -25,12 +26,8 @@
           }
           return data;
         };
-
-
         let data = getVirtulData(2016);
-
         let chart = this.$echarts.init(document.getElementById('calendar'));
-
         let option = {
           //backgroundColor: '#515a6e',
           title: {
@@ -125,7 +122,6 @@
             }
           ]
         };
-
         chart.setOption(option);
       }
     }
@@ -139,6 +135,6 @@
     left: 0;
     width: 25%;
     height: 35%;
-    background-color: #2dff63;
+
   }
 </style>
