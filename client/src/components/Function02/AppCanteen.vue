@@ -19,74 +19,10 @@
         },
         mounted() {
             //this.Draw();
-          this.Init();
+          //this.Init();
         },
         methods:{
           Init(){
-            this.$http.get('query',{params:{
-              sql:`select Dept,TermNo,Money from cost_pro`
-              }}).then(res=>{
-
-              let Dept = [
-                "第一食堂",
-                "第二食堂",
-                "第三食堂",
-                "第四食堂",
-                "第五食堂",
-                "教师食堂"
-              ];
-              let One= res.body.filter(d=>Dept[0].includes(d.Dept));
-              let Two = res.body.filter(d=>Dept[1].includes(d.Dept));
-              let Three = res.body.filter(d=>Dept[2].includes(d.Dept));
-              let Four = res.body.filter(d=>Dept[3].includes(d.Dept));
-              let Five = res.body.filter(d=>Dept[4].includes(d.Dept));
-              let Teacher = res.body.filter(d=>Dept[5].includes(d.Dept));
-              this.data_One = d3.nest().key(d => d.TermNo).entries(One).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              this.data_Two = d3.nest().key(d => d.TermNo).entries(Two).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              this.data_Three = d3.nest().key(d => d.TermNo).entries(Three).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              this.data_Four = d3.nest().key(d => d.TermNo).entries(Four).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              this.data_Five = d3.nest().key(d => d.TermNo).entries(Five).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              this.data_Teacher = d3.nest().key(d => d.TermNo).entries(Teacher).map(d => {
-                return {value: d.values, name: d.key};
-              })
-              //console.log(this.data_Teacher[0].value)
-              this.Draw(this.data_One,this.data_Two,this.data_Three,this.data_Four,this.data_Five,this.data_Teacher);
-            })
-          },
-            Draw(data_One, data_Two, data_Three, data_Four, data_Five, data_Teacher){
-                //console.log(this.data_Teacher)
-                let myChart = this.$echarts.init(document.getElementById('canteen'));
-                let teacher = []
-              console.log(data_Teacher[0].value)
-                function set_teacher(data_Teacher){
-                  for (let i in data_Teacher)
-                  {
-                    for (let j in data_Teacher[i].value){
-                      teacher.push({name:data_Teacher[i].name,value:data_Teacher[i].value[j].Money})
-                    }
-                  }
-                  //console.log(teacher[0].value)
-                }
-              set_teacher(data_Teacher);
-              let teacher_Result = {}
-              for(let i = 0;i<teacher.length;i++){
-                if(teacher_Result[teacher[i].name]){
-                  teacher_Result[teacher[i].name]+=parseFloat(teacher[i].value);
-                }else{
-                  teacher_Result[teacher[i].name]=parseFloat(teacher[i].value);
-                }
-              }
-              console.log(teacher_Result)
 
               let keyvalue=[];
               for(let key in teacher_Result){

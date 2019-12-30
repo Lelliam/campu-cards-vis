@@ -58,7 +58,7 @@
 
         let chart = this.$echarts.init(document.getElementById('main_01'));
 
-          this.$echarts.registerMap('ls', geoJson);
+        this.$echarts.registerMap('ls', geoJson);
 
         let geoCoordMap = {
           '财务处':[120.543338882,31.9087250105],
@@ -266,8 +266,8 @@
   #main{
     position: absolute;
     top:0;
-    left: 20%;
-    width: 60%;
+    left: 35%;
+    width: 45%;
     height: 60%;
     /*background-color: #3bff77;*/
   }

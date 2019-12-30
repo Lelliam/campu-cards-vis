@@ -1,16 +1,16 @@
 <template>
   <div id="function03">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
-      消费特征与行为轨迹
       <div id="container">
-        <AppTest/>
+        <AppMain />
       </div>
     </Card>
   </div>
 </template>
 
 <script>
-  import AppTest from "./Function03/AppTest";
+  // import AppTest from "./Function03/AppTest";
+  import AppMain from "./Function03/AppMain";
     export default {
         name: "AppFunction03",
         mounted(){
@@ -18,7 +18,8 @@
         methods:{
         },
         components:{
-          AppTest
+          // AppTest,
+          AppMain
         }
     }
 </script>

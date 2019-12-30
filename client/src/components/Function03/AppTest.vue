@@ -7,27 +7,27 @@
   export default {
     name: "AppTest",
     mounted() {
-      this.init_chart();
+      //this.init_chart();
     },
     methods:{
-      getSex(major = '18软件技术'){
-        return this.$axios.get('major_sex',{params:{
-            major:major
-          }},res=>{
-          console.log(res.body);
-        });
-      },
-      getSex1(major = '18软件技术'){
-        return this.$axios.get('major_sex',{params:{
-            major:major
-          }},res=>{
-          console.log(res.body);
-        });
-      },
-      init_chart(){
-        this.$axios.all([this.getSex(),this.getSex1()]).then(this.$axios.spread((res1,res2)=>{
-          console.log(res1,res2);
-        }))
+      // getSex(major = '18软件技术'){
+      //   return this.$axios.get('major_sex',{params:{
+      //       major:major
+      //     }},res=>{
+      //     console.log(res.body);
+      //   });
+      // },
+      // getSex1(major = '18软件技术'){
+      //   return this.$axios.get('major_sex',{params:{
+      //       major:major
+      //     }},res=>{
+      //     console.log(res.body);
+      //   });
+      // },
+      // init_chart(){
+      //   this.$axios.all([this.getSex(),this.getSex1()]).then(this.$axios.spread((res1,res2)=>{
+      //     console.log(res1,res2);
+      //   }))
         // this.$http.get('major_sex',{params:{
         //     major:'18软件技术'
         //   }}).then(res=>{
