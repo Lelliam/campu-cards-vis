@@ -50,11 +50,28 @@
             orient: 'vertical',
             data: ['A','B']
           },
+          dataZoom: [{
+            type: 'slider',
+            show: true,
+            height: 20,
+            left: '5%',
+            right: '5%',
+            bottom: '2%',
+            start: 0,
+            end: 3.7,
+            textStyle: {
+              color: 'rgba(29,24,26,0.86)',
+              fontSize: 11,
+            },
+          }, {
+            type: 'inside'
+          }
+          ],
           grid: {
-            top: '15%',
+            top: '20%',
             right: '5%',
             left: '5%',
-            bottom: '10%'
+            bottom: '15%'
           },
           xAxis: {
             type: 'category',
@@ -62,15 +79,18 @@
             boundaryGap: false,
             splitLine: {
               show: true,
+
               interval: 'auto',
               lineStyle: {
-                color: ['#D4DFF5']
+                color: ['#D4DFF5'],
+                width:.5
               }
             },
             axisTick: {
               show: false
             },
             axisLine: {
+              show:false,
               lineStyle: {
                 color: '#7e7e7e'
               }
@@ -87,13 +107,15 @@
             type: 'value',
             splitLine: {
               lineStyle: {
-                color: ['#D4DFF5']
+                color: ['#D4DFF5'],
+                width:.5
               }
             },
             axisTick: {
               show: false
             },
             axisLine: {
+              show:false,
               lineStyle: {
                 color: '#7e7e7e'
               }
@@ -103,6 +125,9 @@
               textStyle: {
                 color:'#7e7e7e',
                 fontSize: 11
+              },
+              lineStyle: {
+                color: 'rgba(29,24,26,0.51)',
               }
             }
           },
@@ -121,7 +146,7 @@
                   color: 'rgba(199, 237, 250,0.5)'
                 }, {
                   offset: 1,
-                  color: 'rgba(199, 237, 250,0.2)'
+                  color: 'rgba(247,213,172,0.68)'
                 }], false)
               }
             },
@@ -150,13 +175,13 @@
                   color: 'rgba(216, 244, 247,1)'
                 }, {
                   offset: 1,
-                  color: 'rgba(216, 244, 247,1)'
+                  color: 'rgb(112,226,247)'
                 }], false)
               }
             },
             itemStyle: {
               normal: {
-                color: '#58c8da'
+                color: '#599cff'
               }
             },
             lineStyle: {

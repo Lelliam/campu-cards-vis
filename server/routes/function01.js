@@ -84,7 +84,35 @@ router.get("/major_cost", function(req, res, next) {
                 date:DateFormat(new Date(d.key)),
                 value:d.values.length
             }
+        }).sort((a,b)=>new Date(a.date)- new Date(b.date)));
+    });
+});
+router.get("/f1_calendar_all", function(req, res, next) {
+    let DateFormat = d3.timeFormat('%Y-%m-%d');
+    sql_operation.query(`select Date from cost_pro`, data=>{
+
+        data.forEach(d=>{
+            d.Date = new Date(d.Date);
+            d.Date = DateFormat(d.Date);
+        });
+        res.send(d3.nest().key(d=>d.Date).entries(data).map(d=>{
+            return {
+                date:d.key,
+                value:d.values.length
+            }
         }));
     });
 });
+router.get("/f1_charge_all", function(req, res, next) {
+    let DateFormat = d3.timeFormat('%Y-%m-%d');
+    sql_operation.query(`select Date,FundMoney from cost_pro where type = '存款'`, data=>{
+        data.forEach(d=>{
+            d.Date = DateFormat(new Date(d.Date));
+        });
+        res.send(d3.nest().key(d=>d.Date).entries(data).map(d=>{
+            return {date: d.key, number:d.values.length, sum:d3.sum(d.values,d=>d.FundMoney)}
+        }));
+    });
+});
+
 module.exports = router;

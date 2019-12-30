@@ -9,6 +9,7 @@
         <AppPlot></AppPlot>
         <AppMatrixTree></AppMatrixTree>
 <!--        <AppMainDetail></AppMainDetail>-->
+        <AppCalendar></AppCalendar>
       </div>
     </Card>
   </div>
@@ -25,6 +26,7 @@
   import AppMatrixTree from "./Function01/AppMatrixTree";
   import AppPlot from "./Function01/AppPlot";
   // import AppMainDetail from "./Function01/AppMainDetail";
+  import AppCalendar from "./Function01/AppCalendar";
     export default {
         name: "AppFunction01",
         mounted(){
@@ -38,7 +40,8 @@
           AppTimeLine,
           AppRadar,
           AppMain,
-          // AppMainDetail
+          // AppMainDetail,
+          AppCalendar
         }
     }
 </script>
