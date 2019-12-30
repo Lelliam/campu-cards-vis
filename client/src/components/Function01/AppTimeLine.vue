@@ -10,7 +10,7 @@
     },
     methods:{
       getMajorCost(major = '18软件技术'){
-        return this.$axios.get('major_cost',{params:{
+        this.$axios.get('major_cost',{params:{
             major:major
           }}).then(res=>{
           console.log(res.data);

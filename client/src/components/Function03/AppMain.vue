@@ -8,15 +8,24 @@
   export default {
     name: "AppMain",
     mounted() {
-      this.Draw();
       this.test();
     },
     methods:{
       test(){
         let DateFormat = d3.timeFormat('%Y-%m-%d %H:%M');
         this.$axios.get('track').then(res=>{
+          let nodes = d3.nest().key(d=>d.Dept).entries(res.data).map(d=>{
+            return {
+              name:d.key,
+              symbolSize:0
+            }
+          });
           res.data.forEach(d=>{
             d.Date = DateFormat(new  Date(d.Date));
+            nodes.forEach(t=>{
+              if(t.name === d.Dept)
+                t.symbolSize++;
+            })
           });
           res.data.sort((a,b)=>a.Date - b.Date);
           let data = d3.nest().key(d=>d.CardNo).entries(res.data).filter(d=>d.values.length>1);
@@ -28,26 +37,29 @@
               if(start === d.values[i].Dept){
               }
               else{
+                let flag = true;
+                if(links)
                 links.forEach(s=>{
-
+                  if(s.source === start && s.target === d.values[i].Dept)
+                    flag = false;
                 });
-                links.push({
-                  source:start,
-                  target:d.values[i].Dept
-                });
+                if(flag)
+                  links.push({
+                    source:start,
+                    target:d.values[i].Dept
+                  });
                 start = d.values[i].Dept;
               }
             }
           });
-
-          console.log(links);
+          this.Draw({nodes:nodes,links:links});
         });
       },
       /* "人文社科","医务室","基础课部","外语系","好利来食品店","宿管办","工商系部","教师食堂","旅游系","机电系",
       * "水电缴费处","第一图书馆","第一教学楼","第一食堂","第七教学楼","第三教学楼","第三食堂","第二图书馆","第二教学楼",
       * "第二食堂","第五教学楼","第五食堂","第六教学楼","第四教学楼","第四食堂","红太阳超市","自然科学书库","艺术设计学院",
       * "财务处","财务部","财经系","青鸾苑宿管办","飞凤轩宿管办"*/
-      Draw(){
+      Draw(data){
         // let data = ["人文社科","医务室","基础课部","外语系","好利来食品店","宿管办","工商系部","教师食堂","旅游系","机电系",
         //   "水电缴费处","第一图书馆","第一教学楼","第一食堂","第七教学楼","第三教学楼","第三食堂","第二图书馆","第二教学楼",
         //   "第二食堂","第五教学楼","第五食堂","第六教学楼","第四教学楼","第四食堂","红太阳超市","自然科学书库","艺术设计学院",
@@ -143,7 +155,9 @@
         //   }]
         // };
 
-        let option = option = {
+        console.log(data);
+
+/*        let option = option = {
           title: {
             text: 'Graph 简单示例'
           },
@@ -170,68 +184,95 @@
                   }
                 }
               },
-              data: [{
-                name: '节点1',
-                x: 300,
-                y: 300
-              }, {
-                name: '节点2',
-                x: 800,
-                y: 300
-              }, {
-                name: '节点3',
-                x: 550,
-                y: 100
-              }, {
-                name: '节点4',
-                x: 550,
-                y: 500
-              }],
+              data: data.nodes.map(d => {
+                return {
+                  name: d,
+                  x: Math.floor(Math.random() * 600),
+                  y: Math.floor(Math.random() * 600)
+                }
+              }),
               // links: [],
-              links: [{
-                source: 0,
-                target: 1,
-                symbolSize: [5, 20],
-                label: {
-                  normal: {
-                    show: true
-                  }
-                },
-                lineStyle: {
-                  normal: {
-                    width: 5,
-                    curveness: 0.2
-                  }
+              links:data.links
+            }],
+          lineStyle: {
+            normal: {
+              opacity: 0.9,
+              width: 2,
+              curveness: 0
+            }
+          }
+        };
+
+        */
+
+        // let option = {
+        //   series: [ {
+        //     type: 'graph',
+        //     layout: 'force',
+        //     animation: false,
+        //     data: data.nodes.map(d=> {
+        //       return {'name':d}
+        //     }),
+        //     width: '25%',
+        //     height: '25%',
+        //     force: {
+        //       // initLayout: 'circular'
+        //       // gravity: 0
+        //       repulsion: 500,
+        //       //edgeLength: 8
+        //     },
+        //     edges: data.links
+        //   }]
+        // };
+        let scale = d3.scaleLinear()
+        .domain(d3.extent(data.nodes,d=>d.symbolSize))
+        .range([10,100]);
+        data.nodes.forEach(function (node) {
+          node.itemStyle = null;
+          node.value = node.symbolSize;
+          node.label = {
+            normal: {
+              show: node.symbolSize > 30
+            }
+          };
+          node.label.normal.show = node.symbolSize > 30;
+          //node.category = node.attributes.modularity_class;
+        });
+
+        let  option = {
+          title: {
+            text: 'Les Miserables',
+            subtext: 'Circular layout',
+            top: 'bottom',
+            left: 'right'
+          },
+          tooltip: {},
+          // legend: [{
+          //   // selectedMode: 'single',
+          //   data: categories.map(function (a) {
+          //     return a.name;
+          //   })
+          // }],
+          animationDurationUpdate: 1500,
+          animationEasingUpdate: 'quinticInOut',
+          series : [
+            {
+              name: 'Les Miserables',
+              type: 'graph',
+              layout: 'circular',
+              data: data.nodes,
+              links: data.links,
+              //categories: categories,
+              roam: true,
+              label: {
+                normal: {
+                  position: 'right',
+                  formatter: '{b}'
                 }
-              }, {
-                source: '节点2',
-                target: '节点1',
-                label: {
-                  normal: {
-                    show: true
-                  }
-                },
-                lineStyle: {
-                  normal: { curveness: 0.2 }
-                }
-              }, {
-                source: '节点1',
-                target: '节点3'
-              }, {
-                source: '节点2',
-                target: '节点3'
-              }, {
-                source: '节点2',
-                target: '节点4'
-              }, {
-                source: '节点1',
-                target: '节点4'
-              }],
+              },
               lineStyle: {
                 normal: {
-                  opacity: 0.9,
-                  width: 2,
-                  curveness: 0
+                  curveness: 0.3
                 }
               }
             }
