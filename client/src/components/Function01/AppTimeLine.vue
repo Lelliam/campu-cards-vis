@@ -1,167 +1,176 @@
 <template>
-<div id="time_line"></div>
+  <div id="time_line"></div>
 </template>
 
 <script>
-    export default {
-        name: "AppTimeLine",
-        mounted(){
-            this.init_chart();
-        },
-        methods:{
-            init_chart(){
+  export default {
+    name: "AppTimeLine",
+    mounted(){
+      this.getMajorCost();
+    },
+    methods:{
+      getMajorCost(major = '18软件技术'){
+        return this.$axios.get('major_cost',{params:{
+            major:major
+          }}).then(res=>{
+          console.log(res.data);
+          this.Draw(res.data);
+        });
+      },
 
-                let echarts = this.$echarts;
+      Draw(data){
 
-                let chart = this.$echarts.init(document.getElementById('time_line'));
+        let echarts = this.$echarts;
 
-                let option = {
-                    title: {
-                        show:false,
-                        text: '今日&昨日',
-                        left: '50%',
-                        textAlign: 'center'
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            lineStyle: {
-                                color: '#ddd'
-                            }
-                        },
-                        backgroundColor: 'rgba(255,255,255,1)',
-                        padding: [5, 10],
-                        textStyle: {
-                            color: '#7588E4',
-                        },
-                        extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
-                    },
-                    legend: {
-                        right: 20,
-                        orient: 'vertical',
-                        data: ['A','B']
-                    },
-                    grid: {
-                        top: '15%',
-                        right: '5%',
-                        left: '5%',
-                        bottom: '10%'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: ['00:00','2:00','4:00','6:00','8:00','10:00','12:00','14:00','16:00','18:00','20:00',"22:00"],
-                        boundaryGap: false,
-                        splitLine: {
-                            show: true,
-                            interval: 'auto',
-                            lineStyle: {
-                                color: ['#D4DFF5']
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            lineStyle: {
-                                color: '#7e7e7e'
-                            }
-                        },
-                        axisLabel: {
-                            margin: 10,
-                            textStyle: {
-                                color:'#7e7e7e',
-                                fontSize: 11
-                            }
-                        }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        splitLine: {
-                            lineStyle: {
-                                color: ['#D4DFF5']
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            lineStyle: {
-                                color: '#7e7e7e'
-                            }
-                        },
-                        axisLabel: {
-                            margin: 10,
-                            textStyle: {
-                                color:'#7e7e7e',
-                                fontSize: 11
-                            }
-                        }
-                    },
-                    series: [{
-                        name: '今日',
-                        type: 'line',
-                        smooth: true,
-                        showSymbol: false,
-                        symbol: 'circle',
-                        symbolSize: 6,
-                        data: ['1200', '1400', '1008', '1411', '1026', '1288', '1300', '800', '1100', '1000', '1118', '1322'],
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(199, 237, 250,0.5)'
-                                }, {
-                                    offset: 1,
-                                    color: 'rgba(199, 237, 250,0.2)'
-                                }], false)
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: '#f7b851'
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 3
-                            }
-                        }
-                    }, {
-                        name: '昨日',
-                        type: 'line',
-                        smooth: true,
-                        showSymbol: false,
-                        symbol: 'circle',
-                        symbolSize: 6,
-                        data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(216, 244, 247,1)'
-                                }, {
-                                    offset: 1,
-                                    color: 'rgba(216, 244, 247,1)'
-                                }], false)
-                            }
-                        },
-                        itemStyle: {
-                            normal: {
-                                color: '#58c8da'
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 3
-                            }
-                        }
-                    }]
-                };
+        let chart = this.$echarts.init(document.getElementById('time_line'));
 
-                chart.setOption(option);
+        let option = {
+          title: {
+            show:false,
+            text: '今日&昨日',
+            left: '50%',
+            textAlign: 'center'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              lineStyle: {
+                color: '#ddd'
+              }
+            },
+            backgroundColor: 'rgba(255,255,255,1)',
+            padding: [5, 10],
+            textStyle: {
+              color: '#7588E4',
+            },
+            extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
+          },
+          legend: {
+            right: 20,
+            orient: 'vertical',
+            data: ['A','B']
+          },
+          grid: {
+            top: '15%',
+            right: '5%',
+            left: '5%',
+            bottom: '10%'
+          },
+          xAxis: {
+            type: 'category',
+            data: data.map(d=>d.date),
+            boundaryGap: false,
+            splitLine: {
+              show: true,
+              interval: 'auto',
+              lineStyle: {
+                color: ['#D4DFF5']
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#7e7e7e'
+              }
+            },
+            axisLabel: {
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
             }
-        }
+          },
+          yAxis: {
+            type: 'value',
+            splitLine: {
+              lineStyle: {
+                color: ['#D4DFF5']
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#7e7e7e'
+              }
+            },
+            axisLabel: {
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
+          },
+          series: [{
+            name: '今日',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            symbol: 'circle',
+            symbolSize: 6,
+            data: data.map(d=>d.value),
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(199, 237, 250,0.2)'
+                }], false)
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: '#f7b851'
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 3
+              }
+            }
+          }, {
+            name: '昨日',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            symbol: 'circle',
+            symbolSize: 6,
+            data: [],
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(216, 244, 247,1)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(216, 244, 247,1)'
+                }], false)
+              }
+            },
+            itemStyle: {
+              normal: {
+                color: '#58c8da'
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 3
+              }
+            }
+          }]
+        };
+
+        chart.setOption(option);
+      }
     }
+  }
 </script>
 
 <style scoped>
