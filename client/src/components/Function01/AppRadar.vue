@@ -6,87 +6,66 @@
   import * as d3 from "d3";
   export default {
     name: "AppRadar",
-    data()
-    {
+    data(){
       return{
-        Place_data:[]
       }
     },
     mounted() {
-      //this.Radar();
       this.Init();
     },
     methods:{
-      Init(Major = '18国际金融'){
-        let sql = `select Sex, Major, Dept from cost_pro where Major =  '${Major}'`;
-        this.$http.get('query', {
-          params: {
-            sql: sql
-          }
-        }).then(res => {
-          let Dept = [
-          "第一食堂",
-          "第二食堂",
-          "第三食堂",
-          "第四食堂",
-          "第五食堂",
-          "好利来食品店",
-          "财务处",
-          "红太阳超市"
-          ];
-          let data = res.body.filter(d=>Dept.includes(d.Dept));
-          this.Place_data = d3.nest().key(d => d.Sex).entries(data).map(d => {
-            return {sex:d.key, data:d3.nest().key(d=>d.Dept).entries(d.values).map(d=>{
-                return {Dept:d.key,value:d.values.length}
-              }).sort((a,b)=>Dept.indexOf(a.Dept)-Dept.indexOf(b.Dept))}
-          });
-          // console.log(this.Female_data);
-          this.Draw(this.Place_data);
-          //console.log();
-        });
+      getSex(major){
+        return this.$axios.get('major_sex',{params:{
+            major:major
+          }});
       },
-      Draw(Place_data) {
-
-
+      getMajorSexDept(major){
+        return this.$axios.get('major_sex_dept',{params:{
+            major:major
+          }});
+      },
+      Init(major='18国际金融'){
+        this.$axios.all([this.getSex(major),this.getMajorSexDept(major)]).then(this.$axios.spread((res1,res2)=>{
+          this.Draw(res1.data,res2.data,major);
+        }));
+      },
+      Draw(sex_data,data,major) {
         let chart = this.$echarts.init(document.getElementById('radar'));
-
-        let max = d3.max(Place_data,d=>d.value);
         let option = {
-          color: ["rgb(26,199,255)", "rgb(255,104,123)"],
+          title:{
+            text:`空间偏好信息`,
+            subtext:`${major.replace('18','')}专业`
+          },
+          color: ["rgb(255,124,139)", "rgb(108,183,255)"],
           tooltip: {
             show: true,
             trigger: "item"
           },
-          grid: {
-            top: '15%',
-            right: '5%',
-            left: '90%',
-            bottom: '15%'
-          },
           legend: {
             show: true,
-            icon: "circle",
-            right: '5%',
-            top: 'center',
-            orient: "vertical",
+            //icon: "circle",
+            right: '10%',
+            top: '0%',
+            //orient: "vertical",
             itemGap: 30,
             textStyle: {
               fontSize: 15,
               color: "#000"
             },
-            data: ["男", "女"]
+            data: [{
+              name:'男',
+              icon:'image://http://localhost:3000/images/male.png',
+            }, {
+              name:'女',
+              icon:'image://http://localhost:3000/images/female.png',
+            }]
           },
           radar: {
             center: ["50%", "50%"],
             radius: "70%",
             startAngle: 90,
             splitNumber: 4,
-            shape: "circle",
-            splitArea: {
-              areaStyle: {
-                color: ["transparent"]
-              }
-            },
+            //shape: "circle",
             axisLabel: {
               show: false,
               fontSize: 20,
@@ -98,97 +77,124 @@
               show: true,
               lineStyle: {
                 type:"dashed",
-                color: "#000"
+                color: "rgba(29,24,26,0.63)",
+                areaStyle: {
+                  color: ["transparent"]
+                }
               }
             },
             splitLine: {
-              show: true,
               lineStyle: {
-                type:"dashed",
-                color: "#000"
+                color: [
+                  'rgba(238, 197, 102, 0.3)', 'rgba(238, 197, 102, 0.3)',
+                  'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.4)',
+                  'rgba(238, 197, 102, 0.7)', 'rgba(255,181,83,0.52)'
+                ].reverse()
               }
             },
-            indicator: [{
-              name: "第一食堂",
-              max: max
-            },{
-              name: "第二食堂",
-              max: max
-            },{
-              name: "第三食堂",
-              max: max
-            }, {
-              name: "第四食堂",
-              max: max
-            }, {
-              name: "第五食堂",
-              max: max
-            }, {
-              name: "好利来食品店",
-              max: max
-            },{
-              name: "财务处",
-              max: max
-            },{
-              name: "红太阳超市",
-              max: max
-            }]
+            splitArea: {
+              areaStyle: {
+                color:'#FFF'
+              }
+            },
+            indicator: [
+              {name: "第一食堂", max: 0.5},
+              {name: "第二食堂", max: 0.5},
+              {name: "第三食堂", max: 0.5},
+              {name: "第四食堂", max: 0.5},
+              {name: "第五食堂", max: 0.5},
+              {name: "好利来食品店", max:0.5},
+              {name: "财务处", max:0.5},
+              {name: "红太阳超市", max:0.5}]
           },
           series: [{
             name: "男",
             type: "radar",
             symbol: "circle",
-            symbolSize: 10,
+            symbolSize: 5,
             areaStyle: {
               normal: {
-                color: "rgba(86,199,60, 0.4)"
+                color: "rgba(108,183,255, 0.4)"
               }
             },
             itemStyle:{
-              color:'#ff3b59',
-              borderColor:'rgba(86,199,60, 0.3)',
+              color:'rgba(108,183,255, 1)',
+              borderColor:'rgba(108,183,255, 0.3)',
               borderWidth:10,
             },
             lineStyle: {
               normal: {
-                color: "rgba(86,199,60, 1)",
+                color: "rgba(108,183,255, 1)",
                 width: 2
               }
             },
-            data:[[Place_data[0].data[0].value,Place_data[0].data[1].value,
-              Place_data[0].data[2].value,Place_data[0].data[3].value,
-              Place_data[0].data[4].value,Place_data[0].data[5].value,
-              Place_data[0].data[6].value,Place_data[0].data[7].value]]
+            data: [
+              data.filter(d=>d.name === '男')[0].data.map(d=>d.value)
+            ]
           }, {
             name: "女",
             type: "radar",
             symbol: "circle",
-            symbolSize: 10,
+            symbolSize: 5,
             itemStyle: {
               normal: {
-                color:'#6cb7ff',
-                borderColor: "rgba(0,183,238, 0.4)",
+                color:'rgb(255,124,139, 1)',
+                borderColor: "rgba(255,124,139, 0.4)",
                 borderWidth: 10
               }
             },
             areaStyle: {
               normal: {
-                "color": "rgba(0,183,238, 1)"
+                "color": "rgba(255,124,139, .5)"
               }
             },
             lineStyle: {
               normal: {
-                color: "rgba(0,183,238, 1)",
-                width: 2,
+                color: "rgba(255,124,139, 1)",
+                width: 1,
               }
             },
-            data:[[Place_data[1].data[0].value,Place_data[1].data[1].value,
-              Place_data[1].data[2].value,Place_data[1].data[3].value,
-              Place_data[1].data[4].value,Place_data[1].data[5].value,
-              Place_data[1].data[6].value,Place_data[1].data[7].value]]
-          }]
+            data: [
+              data.filter(d=>d.name === '女')[0].data.map(d=>d.value)
+            ]
+          },
+            {
+              name:'性别',
+              center: ['50%', '50%'],
+              type: 'pie',
+              radius: ['73%', '75%'],
+              labelLine: {
+                normal: {
+                  show: false
+                }
+              },
+              itemStyle:{
+                normal:{
+                  color:(params)=>['#6cb7ff','#ff3684'][params.dataIndex],
+                }
+              },
+              label: {
+                normal: {
+                  show: false
+                }
+              },
+              data: sex_data
+            }]
         };
         chart.setOption(option);
+      }
+    },
+    computed:{
+      major_state(){
+        return this.$store.state.major_state;
+      }
+    },
+    watch:{
+      major_state:{
+        handler(state){
+          this.Init(state);
+          //console.log(state);
+        }
       }
     }
   }
