@@ -1,16 +1,16 @@
 <template>
   <div id="detail">
-      <Card v-for="(i,d) in list" :key="i" :style="{margin: '10px',minHeight: '250px'}">
-        <p slot="title">
-          <Icon type="ios-film-outline"></Icon>
-          专业名称{{i}}
-        </p>
-        <a @click="close(i)" slot="extra">
-          <Icon type="ios-loop-strong"></Icon>
-          X
-        </a>
-        <div class="major_detail" :id="'major'+d"></div>
-      </Card>
+    <Card v-for="(i,d) in list" :key="i" :style="{margin: '10px',minHeight: '150px'}">
+      <p slot="title">
+        <Icon type="ios-film-outline"></Icon>
+        专业名称{{i}}
+      </p>
+      <a @click="close(i)" slot="extra">
+        <Icon type="ios-loop-strong"></Icon>
+        X
+      </a>
+      <div class="major_detail" :id="'major'+d"></div>
+    </Card>
   </div>
 </template>
 
@@ -20,12 +20,10 @@
     data(){
       return  {
         list:['18市场营销','18软件技术'],
-        sex_data:[],
-        place_data:[]
       }
     },
     mounted() {
-      //this.Init();
+      //this. SendData( '18软件技术',1);
     },
     methods: {
       getSex(major){
@@ -98,24 +96,7 @@
       },
       close(name) {
         this.list.splice(this.list.indexOf(name), 1);
-        this.$store.commit('major_list',this.list);
       },
-    },
-    computed:{
-      major_list(){
-        return this.$store.state.major_list;
-      }
-    },
-    watch:{
-      major_list:{
-        handler(value){
-          //console.log(value);
-          this.list = value;
-          this.list.forEach((d,i)=>{
-            this.SendData(d,i);
-          });
-        }
-      }
     }
   }
 </script>
@@ -124,22 +105,18 @@
   #detail{
     position: absolute;
     top:0;
-    left: 65%;
-    width: 15%;
+    left: 0;
+    width: 20%;
     height: 60%;
     overflow-y:auto;
     overflow-x: hidden;
-  }
-
-  .sub_circle{
-    position: relative;
-    width: 100%;
-    height: 100px;
   }
 
   .major_detail{
     position: absolute;
     width: 100%;
     height: 80%;
+    background-color: #73ff51;
   }
+
 </style>

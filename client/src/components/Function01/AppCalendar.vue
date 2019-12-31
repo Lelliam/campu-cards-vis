@@ -41,7 +41,7 @@
           legend: {
             top: '9.5%',
             align:'left',
-            left: '45%',
+            left: '55%',
             orient: 'vertical',
             itemWidth: 10,  // 设置宽度
             itemHeight: 10, // 设置高度
