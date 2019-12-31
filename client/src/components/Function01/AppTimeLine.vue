@@ -79,7 +79,6 @@
             boundaryGap: false,
             splitLine: {
               show: true,
-
               interval: 'auto',
               lineStyle: {
                 color: ['#D4DFF5'],

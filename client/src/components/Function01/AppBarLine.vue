@@ -6,15 +6,31 @@
     export default {
         name: "AppBarLine",
       mounted() {
-          this.BarLine();
+          this.getData();
       },
       methods:{
-          BarLine(){
-            let echarts = this.$echarts;
+          getData(){
+            this.$axios.get('/f1_charge_all').then(res=>{
+              this.BarLine(res.data);
+            });
+          },
+          BarLine(data){
 
+            let echarts = this.$echarts;
             let chart = this.$echarts.init(document.getElementById('bar_line'));
 
+            console.log(data);
+
             let option = {
+              title:{
+                text:`充值行为信息`,
+                //subtext:`专业`
+              },
+              grid: {
+                left: '15%',
+                top: '20%',
+                right: '15%',
+              },
               tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -24,56 +40,78 @@
                   }
                 }
               },
-              toolbox: {
-                feature: {
-                  dataView: {show: true, readOnly: false},
-                  magicType: {show: true, type: ['line', 'bar']},
-                  restore: {show: true},
-                  saveAsImage: {show: true}
-                }
-              },
+              visualMap: [{
+                show: false,
+                type: 'continuous',
+                seriesIndex: 1,
+                min: 0,
+                max: 400
+              }],
               xAxis: [
                 {
                   type: 'category',
-                  data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-                  axisPointer: {
-                    type: 'shadow'
+                  data: data.map(d=>d.date),
+                  boundaryGap: false,
+                  splitLine: {
+                    show: true,
+                    interval: 'auto',
+                    lineStyle: {
+                      color: ['#D4DFF5'],
+                      width:.5
+                    }
+                  },
+                  axisTick: {
+                    show: false
+                  },
+                  axisLine: {
+                    show:false,
+                    lineStyle: {
+                      color: '#7e7e7e'
+                    }
+                  },
+                  axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                      color:'#7e7e7e',
+                      fontSize: 11
+                    }
                   }
                 }
               ],
               yAxis: [
                 {
                   type: 'value',
-                  name: '水量',
-                  min: 0,
-                  max: 250,
-                  interval: 50,
-                  axisLabel: {
-                    formatter: '{value} ml'
-                  }
+                  name: '人数'
                 },
                 {
                   type: 'value',
-                  name: '温度',
-                  min: 0,
-                  max: 25,
-                  interval: 5,
-                  axisLabel: {
-                    formatter: '{value} °C'
-                  }
+                  name: '总额'
                 }
               ],
               series: [
                 {
-                  name:'蒸发量',
+                  name:'人数',
                   type:'bar',
-                  data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                  data:data.map(d=>d.number),
+                  itemStyle: {
+                    normal: {
+                      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#8bd46e'
+                      }, {
+                        offset: 1,
+                        color: '#09bcb7'
+                      }]),
+                      barBorderRadius: 11,
+                    }
+
+                  }
                 },
                 {
-                  name:'平均温度',
+                  name:'总额',
                   type:'line',
                   yAxisIndex: 1,
-                  data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+                  data:data.map(d=>d.sum)
                 }
               ]
             };

@@ -1,5 +1,19 @@
 <template>
-  <div id="level"></div>
+  <div id="level">
+    <div id="level_main"></div>
+    <div id="level_sex">
+      <CheckboxGroup>
+        <Checkbox label="male">
+          <Icon type="md-male" />
+          <span>男</span>
+        </Checkbox>
+        <Checkbox label="female">
+          <Icon type="md-female" />
+          <span>女</span>
+        </Checkbox>
+      </CheckboxGroup>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,14 +31,13 @@
         });
       },
       Draw(data,major){
-        let chart = this.$echarts.init(document.getElementById('level'));
+        let chart = this.$echarts.init(document.getElementById('level_main'));
 
         let source =[['name','value']];
         data.forEach((d,i)=>{
           source[i+1] = [d.name,d.value];
         });
-        console.log(source);
-
+        //console.log(source);
         let option = {
           title:{
             top:'5%',
@@ -102,9 +115,9 @@
                 normal: {
                   show: true,
                   textStyle: {
-                    color: '#000',
+                    color: 'rgba(29,24,26,0.74)',
                     fontSize: 20,
-                    fontWeight: 'bold'
+                    //fontWeight: 'bold'
                   },
                   position: 'right'
                 }
@@ -169,5 +182,18 @@
     right: 0;
     width: 20%;
     height: 60%;
+  }
+  #level_main{
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  #level_sex{
+    position: absolute;
+    top:5%;
+    left: 20%;
+    width: 100%;
+    height: 20%;
+    z-index:5;
   }
 </style>

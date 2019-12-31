@@ -111,7 +111,7 @@ router.get("/f1_charge_all", function(req, res, next) {
         });
         res.send(d3.nest().key(d=>d.Date).entries(data).map(d=>{
             return {date: d.key, number:d.values.length, sum:d3.sum(d.values,d=>d.FundMoney)}
-        }));
+        }).sort((a,b)=>new Date(a.date)-new Date(b.date)));
     });
 });
 
@@ -162,6 +162,14 @@ router.get("/f1_cost_level", function(req, res, next) {
                 level:levels[d.key]
             }
         }).sort((a,b)=>a.level-b.level));
+    });
+});
+
+router.get("/f1_major_cost", function(req, res, next) {
+    sql_operation.query(`select Major from cost_pro`, data=>{
+        res.send(d3.nest().key(d=>d.Dept).entries(data).map(d=>{
+            return {name: d.key, value:d.values.length}
+        }));
     });
 });
 
