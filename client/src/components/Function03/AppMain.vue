@@ -40,13 +40,17 @@
                 let flag = true;
                 if(links)
                 links.forEach(s=>{
-                  if(s.source === start && s.target === d.values[i].Dept)
+                  if(s.source === start && s.target === d.values[i].Dept){
                     flag = false;
+                    s.value++;
+                  }
+
                 });
                 if(flag)
                   links.push({
                     source:start,
-                    target:d.values[i].Dept
+                    target:d.values[i].Dept,
+                    value:0
                   });
                 start = d.values[i].Dept;
               }
@@ -233,6 +237,11 @@
         let scale = d3.scaleLinear()
         .domain(d3.extent(data.nodes,d=>d.symbolSize))
         .range([10,100]);
+
+        let scale_line = d3.scaleLinear()
+          .domain(d3.extent(data.links,d=>d.value))
+          .range([1,10]);
+
         data.nodes.forEach(function (node) {
           node.itemStyle = null;
           node.symbolSize = scale(node.symbolSize);
@@ -263,7 +272,17 @@
               type: 'graph',
               layout: 'circular',
               data: data.nodes,
-              links: data.links,
+              links: data.links.map(d=>{
+                return {
+                  source:d.source,
+                  target:d.target,
+                  lineStyle: {
+                    normal: {
+                      width: scale_line(d.value),
+                    }
+                  }
+                }
+              }),
               categories: data.nodes,
               focusNodeAdjacency: true,
               roam: true,
