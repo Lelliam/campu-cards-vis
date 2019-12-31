@@ -27,10 +27,10 @@
         let option = {
           //backgroundColor: '#515a6e',
           title: {
-            top: '9%',
             left:'15%',
+            top:'10%',
             text: '消费日历',
-            subtext: '数据纯属虚构',
+            //subtext: '',
             textStyle: {
               color: '#323c48'
             }
@@ -39,10 +39,10 @@
             trigger: 'item'
           },
           legend: {
-            top: '9.5%',
+            top: '10.5%',
             align:'left',
-            left: '55%',
-            orient: 'vertical',
+            left: '35%',
+            //orient: 'vertical',
             itemWidth: 10,  // 设置宽度
             itemHeight: 10, // 设置高度
             data:['消费次数', 'TopFive'],
@@ -51,10 +51,10 @@
             }
           },
           calendar: [{
-            top: '27%',
+            top: '34%',
             left: '15%',
-            orient: 'vertical',
-            range: ['2019-04-01', '2019-04-30'],
+            //orient: 'vertical',
+            range: ['2019-02-01', '2019-06-30'],
             splitLine: {
               show: true,
               lineStyle: {
@@ -136,8 +136,8 @@
   #calendar{
     position: absolute;
     top:0;
-    left: 20%;
-    width: 10%;
-    height: 60%;
+    left: 0;
+    width: 30%;
+    height: 30%;
   }
 </style>

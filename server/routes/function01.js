@@ -168,7 +168,8 @@ router.get("/f1_major_cost", function(req, res, next) {
 });
 
 router.get("/f1_charge_major", function(req, res, next) {
-    sql_operation.query(`select CardNo,FundMoney from cost_pro where type = '存款' and Major = '${req.query.major}'`, data=>{
+
+    sql_operation.query(`select Sex,CardNo,FundMoney from cost_pro where type = '存款' and Major = '${req.query.major}'`, data=>{
         res.send(
             d3.nest()
                 .key(d=>d.CardNo)
@@ -176,12 +177,84 @@ router.get("/f1_charge_major", function(req, res, next) {
                 .map(d=>{
                     return {
                         card_no:d.key,
+                        sex:d.values[0].Sex,
                         times:d.values.length,
                         total:d3.sum(d.values,s=>parseFloat(s.FundMoney)).toFixed(2)
                     }
                 })
         );
     });
+});
+
+router.get("/f1_all_meal", function(req, res, next) {
+    res.send([
+        {"major":"18工业设计","data":{"morn":"1.76","noon":"4.73","even":"3.42"}},
+        {"major":"18机械制造","data":{"morn":"1.63","noon":"5.56","even":"4.67"}},
+        {"major":"18计算机应用","data":{"morn":"1.37","noon":"4.97","even":"4.62"}},
+        {"major":"18电子商务","data":{"morn":"1.58","noon":"5.06","even":"4.03"}},{"major":"18模具设计","data":{"morn":"1.68","noon":"6.12","even":"4.62"}},
+        {"major":"18连锁经营","data":{"morn":"1.73","noon":"5.09","even":"3.85"}},{"major":"18旅游管理","data":{"morn":"1.40","noon":"6.05","even":"3.96"}},
+        {"major":"18视觉传播","data":{"morn":"1.97","noon":"6.61","even":"4.98"}},{"major":"18国际金融","data":{"morn":"0.97","noon":"5.39","even":"3.74"}},
+        {"major":"18会计","data":{"morn":"1.04","noon":"5.15","even":"3.57"}},{"major":"18金融管理","data":{"morn":"1.14","noon":"5.56","even":"3.54"}},
+        {"major":"18嵌入式技术","data":{"morn":"2.01","noon":"5.41","even":"5.28"}},{"major":"18建筑设计","data":{"morn":"2.01","noon":"5.38","even":"4.16"}},
+        {"major":"18商务英语","data":{"morn":"1.58","noon":"5.92","even":"3.69"}},{"major":"18皮具艺术","data":{"morn":"1.94","noon":"5.64","even":"3.82"}},
+        {"major":"18审计","data":{"morn":"1.03","noon":"5.11","even":"3.48"}},{"major":"18国际商务","data":{"morn":"1.38","noon":"5.42","even":"3.54"}},
+        {"major":"18工商企管","data":{"morn":"1.76","noon":"4.84","even":"4.11"}},{"major":"18计算机网络","data":{"morn":"1.42","noon":"6.11","even":"5.04"}},
+        {"major":"18市场营销","data":{"morn":"1.55","noon":"6.12","even":"3.57"}},{"major":"18首饰设计","data":{"morn":"1.01","noon":"8.08","even":"3.42"}},
+        {"major":"18工程造价","data":{"morn":"1.80","noon":"5.19","even":"3.48"}},{"major":"18工业工程","data":{"morn":"1.51","noon":"6.23","even":"4.56"}},
+        {"major":"18物流管理","data":{"morn":"1.45","noon":"4.83","even":"3.83"}},{"major":"18国贸实务","data":{"morn":"1.54","noon":"5.69","even":"3.14"}},
+        {"major":"18商务日语","data":{"morn":"1.10","noon":"6.78","even":"4.00"}},{"major":"18建筑工程","data":{"morn":"2.00","noon":"5.59","even":"3.86"}},
+        {"major":"18艺术设计","data":{"morn":"1.81","noon":"5.62","even":"3.31"}},{"major":"18工业机器人","data":{"morn":"1.83","noon":"4.99","even":"4.11"}},
+        {"major":"18软件技术","data":{"morn":"1.32","noon":"6.12","even":"4.81"}},{"major":"18电气自动化","data":{"morn":"2.35","noon":"5.73","even":"4.16"}},
+        {"major":"18社会工作","data":{"morn":"1.00","noon":"5.63","even":"3.93"}},{"major":"18汽车检测","data":{"morn":"2.07","noon":"5.32","even":"3.99"}},
+        {"major":"18宝玉石鉴定","data":{"morn":"1.13","noon":"6.49","even":"3.97"}},{"major":"18市政工程","data":{"morn":"2.28","noon":"5.85","even":"3.93"}},
+        {"major":"18酒店管理","data":{"morn":"1.75","noon":"5.80","even":"4.10"}},{"major":"18产品艺术","data":{"morn":"1.90","noon":"5.80","even":"3.53"}},
+        {"major":"18机械制造（学徒）","data":{"morn":"1.30","noon":"6.86","even":"5.36"}},{"major":"18动漫设计","data":{"morn":"2.18","noon":"6.03","even":"4.39"}},
+        {"major":"18环境艺术","data":{"morn":"1.63","noon":"5.86","even":"4.06"}},{"major":"18投资与理财","data":{"morn":"1.33","noon":"5.22","even":"3.75"}}]);
+
+/*    let DateFormat = d3.timeFormat('%Y-%m-%d');
+    sql_operation.query(`select CardNo,Major,Money,Date from cost_pro where Type = '消费' and Major != 'null' and Dept like '%食堂%'`, data=>{
+
+        data.forEach(d=>{
+            d.type = MealType(new Date(d.Date));
+            d.Date = DateFormat(new Date(d.Date));
+        });
+
+        data = data.filter(d=>d.Date !== 'other');
+
+
+        /!**
+         * @return {string}
+         *!/
+        function MealType(date){
+            if(date.getHours()>=6&&date.getHours()<=9)
+                return 'morn';
+            else if(date.getHours()>=11&&date.getHours()<=13)
+                return 'noon';
+            else if(date.getHours()>=16&&date.getHours()<=18)
+                return 'even';
+            else
+                return 'other';
+        }
+        res.send(d3.nest().key(d=>d.Major).entries(data).map(d=>{
+            let temp = d3.nest().key(d=>d.CardNo).entries(d.values).map(s=>{
+                let days = d3.nest().key(t=>t.Date).entries(s.values).length;
+                return {
+                    morn:(d3.sum(s.values.filter(x=>x.type === 'morn'),y=>parseFloat(y.Money))/days).toFixed(2),
+                    noon:(d3.sum(s.values.filter(x=>x.type === 'noon'),y=>parseFloat(y.Money))/days).toFixed(2),
+                    even:(d3.sum(s.values.filter(x=>x.type === 'even'),y=>parseFloat(y.Money))/days).toFixed(2)
+                }
+            });
+
+            return  {
+                major:d.key,
+                data: {
+                        morn:(d3.sum(temp,s=>s.morn)/temp.length).toFixed(2),
+                        noon:(d3.sum(temp,s=>s.noon)/temp.length).toFixed(2),
+                        even:(d3.sum(temp,s=>s.even)/temp.length).toFixed(2)
+                    }
+            }
+        }));
+    });*/
 });
 
 module.exports = router;
