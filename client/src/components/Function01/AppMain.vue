@@ -2,22 +2,18 @@
   <div id="main">
     <div id="main_01"></div>
     <div id="info">
-      <Timeline>
-        <TimelineItem color="pink">
+      <Timeline v-model="info">
+        <TimelineItem color="red">
           <p class="time">专业</p>
-          <p class="content">测试文本</p>
+          <p class="content">{{info.major}}</p>
         </TimelineItem>
         <TimelineItem color="green">
           <p class="time">专业人数</p>
-          <p class="content">测试文本</p>
-        </TimelineItem>
-        <TimelineItem color="red">
-          <p class="time">专业类型</p>
-          <p class="content">测试文本</p>
+          <p class="content">{{info.number}}</p>
         </TimelineItem>
         <TimelineItem color="blue">
-          <p class="time">消费地点TOP3</p>
-          <p class="content">一食堂、二食堂、三食堂</p>
+          <p class="time">主要消费地点</p>
+          <p class="content" v-for=" i in info.dept">{{i}}</p>
         </TimelineItem>
       </Timeline>
     </div>
@@ -32,6 +28,12 @@
     name: "AppMain",
     data(){
       return {
+        major_list:['18国际金融'],
+        info:{
+          major:'18国际金融',
+          number:97,
+          dept:['二食堂', '三食堂', '五食堂']
+        }
       }
     },
     mounted() {
@@ -209,14 +211,37 @@
 
         chart.on('click',params=>{
           if(params.componentSubType === 'pie') {
+
+            this.info.major = params.name;
+            this.info.number = params.value;
+
             this.getMajorDept(params.name).then(res=>{
               this.Update(res.data,option,chart,geoCoordMap);
             });
+
             this.$store.commit('major_state',params.name);
+
+            if(this.major_list.includes(params.name)){
+              this.major_list.splice(this.major_list.indexOf(params.name), 1);
+              this.$store.commit('major_cancel',{
+                major:params.name,
+                operate:'pop',
+                color:''
+              });
+            }
+            else{
+              this.major_list.push(params.name);
+              this.$store.commit('major_cancel',{
+                major:params.name,
+                operate:'push',
+                color:params.color
+              });
+            }
+
           }
-          else if(params.componentSubType === 'geo'){
+          else if(params.componentSubType === 'geo') {
           }
-          else{
+          else {
             this.getAllDept().then(res=>{
               this.Update(res.data,option,chart,geoCoordMap);
             });
@@ -225,6 +250,7 @@
         });
         chart.setOption(option);
       },
+
       convertData(geoCoordMap,data) {
         let res = [];
         for (let i = 0; i < data.length; i++) {
@@ -238,7 +264,13 @@
         }
         return res;
       },
+
       Update(data,option,chart,geoCoordMap){
+
+        this.info.dept = this.convertData(geoCoordMap,data.sort(function (a, b) {
+          return b.value - a.value;
+        }).slice(0, 3)).map(d=>d.name.replace('第',''));
+
         let scale = d3.scaleLinear()
           .domain(d3.extent(data,d=>d.value))
           .range([1,100]);
@@ -254,9 +286,12 @@
 
         option.series[2]. symbolSize = function (val) {
           return scale(val[2]);
+
+
         };
 
         chart.setOption(option);
+
       }
     }
   }

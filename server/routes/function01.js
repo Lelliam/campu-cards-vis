@@ -73,7 +73,7 @@ router.get("/all_dept", function(req, res, next) {
 
 router.get("/major_cost", function(req, res, next) {
     let DateFormat = d3.timeFormat('%Y-%m-%d %H:%M');
-    sql_operation.query(`select Date,Major from cost_pro where Major =  '${req.query.major}'`, data=>{
+    sql_operation.query(`select Date,Major,CardNo from cost_pro where Major =  '${req.query.major}'`, data=>{
         data.forEach(d=>{
             d.Date = new Date(d.Date);
             d.Date.setSeconds(0);
@@ -82,7 +82,7 @@ router.get("/major_cost", function(req, res, next) {
         res.send(d3.nest().key(d=>d.Date).entries(data).map(d=>{
             return {
                 date:DateFormat(new Date(d.key)),
-                value:d.values.length
+                value:d3.nest().key(d=>d.CardNo).entries(d.values).length
             }
         }).sort((a,b)=>new Date(a.date)- new Date(b.date)));
     });
@@ -103,17 +103,7 @@ router.get("/f1_calendar_all", function(req, res, next) {
         }));
     });
 });
-router.get("/f1_charge_all", function(req, res, next) {
-    let DateFormat = d3.timeFormat('%Y-%m-%d');
-    sql_operation.query(`select Date,FundMoney from cost_pro where type = '存款'`, data=>{
-        data.forEach(d=>{
-            d.Date = DateFormat(new Date(d.Date));
-        });
-        res.send(d3.nest().key(d=>d.Date).entries(data).map(d=>{
-            return {date: d.key, number:d.values.length, sum:d3.sum(d.values,d=>d.FundMoney)}
-        }).sort((a,b)=>new Date(a.date)-new Date(b.date)));
-    });
-});
+
 
 router.get("/f1_alldept_", function(req, res, next) {
     sql_operation.query(`select Money,Dept,TermNo from cost_pro`, data=>{
@@ -174,6 +164,23 @@ router.get("/f1_major_cost", function(req, res, next) {
                 value:d3.sum(d.values,s=>parseFloat(s.Money)).toFixed(2)
             }
         }));
+    });
+});
+
+router.get("/f1_charge_major", function(req, res, next) {
+    sql_operation.query(`select CardNo,FundMoney from cost_pro where type = '存款' and Major = '${req.query.major}'`, data=>{
+        res.send(
+            d3.nest()
+                .key(d=>d.CardNo)
+                .entries(data)
+                .map(d=>{
+                    return {
+                        card_no:d.key,
+                        times:d.values.length,
+                        total:d3.sum(d.values,s=>parseFloat(s.FundMoney)).toFixed(2)
+                    }
+                })
+        );
     });
 });
 
