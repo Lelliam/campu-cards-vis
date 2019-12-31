@@ -3,88 +3,188 @@
 </template>
 
 <script>
-    export default {
-        name: "AppRevenue",
-        mounted() {
-            this.Draw(1);
-        },
-        methods:{
-            Draw(data){
-                let chart = this.$echarts.init(document.getElementById('revenue'));
-                let option = {
+  export default {
+    name: "AppRevenue",
+    mounted() {
+      this.Draw(1);
+      this.getData();
+    },
+    methods:{
+      getData(){
+        this.$axios.get('canteen_all').then(res=>{
+          console.log(res.data);//
+        })
+      },
+      Draw(data){
+        let chart = this.$echarts.init(document.getElementById('revenue'));
+        data = [["2000-06-05",116],["2000-06-06",129],["2000-06-07",135],["2000-06-08",86],
+          ["2000-06-09",73],["2000-06-10",85],["2000-06-11",73],["2000-06-12",68],
+          ["2000-06-13",92],["2000-06-14",130],["2000-06-15",245],["2000-06-16",139],
+          ["2000-06-17",115],["2000-06-18",111],["2000-06-19",309],["2000-06-20",206],
+          ["2000-06-21",137],["2000-06-22",128],["2000-06-23",85],["2000-06-24",94],
+          ["2000-06-25",71],["2000-06-26",106],["2000-06-27",84],["2000-06-28",93],
+          ["2000-06-29",85],["2000-06-30",73],["2000-07-01",83],["2000-07-02",125],
+          ["2000-07-03",107],["2000-07-04",82],["2000-07-05",44],["2000-07-06",72],
+          ["2000-07-07",106],["2000-07-08",107],["2000-07-09",66],["2000-07-10",91],
+          ["2000-07-11",92],["2000-07-12",113],["2000-07-13",107],["2000-07-14",131],
+          ["2000-07-15",111],["2000-07-16",64],["2000-07-17",69],["2000-07-18",88],
+          ["2000-07-19",77],["2000-07-20",83],["2000-07-21",111],["2000-07-22",57],
+          ["2000-07-23",55],["2000-07-24",60]];
 
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data:['第一食堂','第二食堂','第三食堂','第四食堂','第五食堂','教师食堂']
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
+        let dateList = data.map(function (item) {
+          return item[0];
+        });
+        let valueList = data.map(function (item) {
+          return item[1];
+        });
 
-                    //保存为图片
-                   /* toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },*/
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [
-                        {
-                            name:'第一食堂',
-                            type:'line',
-                            //stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210,152,152,145,145,164,175,189,194,196,200,205,207,209,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
-                        {
-                            name:'第二食堂',
-                            type:'line',
-                           // stack: '总量',
-                            data:[200, 210, 220, 230, 240, 250, 260,270,280,290,300,310,320,330,340,350,360,370,380,390,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
-                        {
-                            name:'第三食堂',
-                            type:'line',
-                           // stack: '总量',
-                            data:[2000, 2100, 220, 2300, 2400, 2500, 2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,3600,3700,3800,3900,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
-                        {
-                            name:'第四食堂',
-                            type:'line',
-                           // stack: '总量',
-                            data:[400, 410, 420, 430, 440, 450, 460,470,480,490,500,510,520,530,540,550,560,570,580,590,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
-                        {
-                            name:'第五食堂',
-                            type:'line',
-                           // stack: '总量',
-                            data:[4000, 4100, 4200, 4300, 4400, 4500, 4600,4700,4800,4900,5000,5100,5200,5300,5400,5500,5600,5700,5800,5900,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
-                        {
-                            name:'教师食堂',
-                            type:'line',
-                           // stack: '总量',
-                            data:[600, 610, 620, 630, 640, 650, 660,670,680,690,700,710,720,730,740,750,760,770,780,790,120, 132, 101, 134, 90, 230, 210,152,152,145]
-                        },
+        let option = {
 
-                    ]
-                };
-
-                chart.setOption(option);
+          // Make gradient line here
+          visualMap: [{
+            show: false,
+            type: 'continuous',
+            seriesIndex: 0,
+            min: 0,
+            max: 400
+          }, {
+            show: false,
+            type: 'continuous',
+            seriesIndex: 1,
+            dimension: 0,
+            min: 0,
+            max: dateList.length - 1
+          },{
+            show: false,
+            type: 'continuous',
+            seriesIndex: 2,
+            dimension: 0,
+            min: 0,
+            max: dateList.length - 1
+          },
+            {
+              show: false,
+              type: 'continuous',
+              seriesIndex: 3,
+              dimension: 0,
+              min: 0,
+              max: dateList.length - 1
             },
-        }
+            {
+              show: false,
+              type: 'continuous',
+              seriesIndex: 3,
+              dimension: 0,
+              min: 0,
+              max: dateList.length - 1
+            },
+            {
+              show: false,
+              type: 'continuous',
+              seriesIndex: 3,
+              dimension: 0,
+              min: 0,
+              max: dateList.length - 1
+            }],
+
+          tooltip: {
+            trigger: 'axis'
+          },
+          xAxis: [{
+            data: dateList
+          }, {
+            data: dateList,
+            gridIndex: 1
+          },{
+            data: dateList,
+            gridIndex: 2
+          },{
+            data: dateList,
+            gridIndex: 3
+          },{
+            data: dateList,
+            gridIndex: 4
+          },{
+            data: dateList,
+            gridIndex: 5
+          }],
+          yAxis: [{
+            splitLine: {show: false}
+          }, {
+            splitLine: {show: false},
+            gridIndex: 1
+          },{
+            splitLine: {show: false},
+            gridIndex: 2
+          },{
+            splitLine: {show: false},
+            gridIndex: 3
+          },{
+            splitLine: {show: false},
+            gridIndex: 4
+          },{
+            splitLine: {show: false},
+            gridIndex: 5
+          }],
+          grid: [{
+            bottom: '85%'
+          }, {
+            top: '85%'
+          },{
+            top: '25%',
+            bottom: '65%'
+          },{
+            top: '40%',
+            bottom: '50%'
+          },{
+            top: '55%',
+            bottom: '35%'
+          },{
+            top: '70%',
+            bottom: '20%'
+          }],
+          series: [{
+            type: 'line',
+            showSymbol: false,
+            data: valueList
+          }, {
+            type: 'line',
+            showSymbol: false,
+            data: valueList,
+            xAxisIndex: 1,
+            yAxisIndex: 1
+          },{
+            type: 'line',
+            showSymbol: false,
+            data: valueList,
+            xAxisIndex: 2,
+            yAxisIndex: 2
+          },{
+            type: 'line',
+            showSymbol: false,
+            data: valueList,
+            xAxisIndex: 3,
+            yAxisIndex: 3
+          },{
+            type: 'line',
+            showSymbol: false,
+            data: valueList,
+            xAxisIndex: 4,
+            yAxisIndex: 4
+          },{
+            type: 'line',
+            showSymbol: false,
+            data: valueList,
+            xAxisIndex: 5,
+            yAxisIndex: 5
+          }]
+        };
+
+
+        chart.setOption(option);
+      },
     }
+  }
 </script>
 
 <style scoped>
@@ -94,6 +194,5 @@
     right: 0;
     width: 20%;
     height: 60%;
-    background-color: #1ac7ff;
   }
 </style>
