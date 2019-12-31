@@ -166,9 +166,13 @@ router.get("/f1_cost_level", function(req, res, next) {
 });
 
 router.get("/f1_major_cost", function(req, res, next) {
-    sql_operation.query(`select Major from cost_pro`, data=>{
-        res.send(d3.nest().key(d=>d.Dept).entries(data).map(d=>{
-            return {name: d.key, value:d.values.length}
+    let DateFormat = d3.timeFormat('%Y-%m-%d');
+    sql_operation.query(`select Major,Money,Date from cost_pro where Major = '${req.query.major}' and Type = '消费'`, data=>{
+        res.send(d3.nest().key(d=>DateFormat(new Date(d.Date))).entries(data).map(d=>{
+            return {
+                name: d.key,
+                value:d3.sum(d.values,s=>parseFloat(s.Money)).toFixed(2)
+            }
         }));
     });
 });
