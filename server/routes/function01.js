@@ -115,4 +115,54 @@ router.get("/f1_charge_all", function(req, res, next) {
     });
 });
 
+router.get("/f1_alldept_", function(req, res, next) {
+    sql_operation.query(`select Money,Dept,TermNo from cost_pro`, data=>{
+        res.send(d3.nest().key(d=>d.Dept).entries(data).map(d=>{
+            return {name: d.key, children:d3.nest().key(d=>d.TermNo).entries(d.values).map(d=>{
+                    return {
+                        name:'No.'+d.key,
+                        value:d.values.length,
+                        per_cost:d3.sum(d.values,s=>parseFloat(s.Money)/d.values.length).toFixed(2)
+                    }
+                })}
+        }));
+    });
+});
+
+router.get("/f1_cost_level", function(req, res, next) {
+    sql_operation.query(`select Money from cost_pro where Major = '${req.query.major}'`, data=>{
+
+        /**
+         * @return {string}
+         */
+        function IdentifyLevel(money){
+            if(money <= 1)
+                return 'RMB <=1';
+            else if(money>1&&money<=3)
+                return 'RMB 1~3';
+            else if(money>3&&money<=5)
+                return 'RMB 3~5';
+            else if(money>5&&money<7)
+                return 'RMB 5~7';
+            else
+                return 'RMB >=7';
+        }
+
+        let levels = {
+            'RMB <=1':'1',
+            'RMB 1~3':'2',
+            'RMB 3~5':'3',
+            'RMB 5~7':'4',
+            'RMB >=7':'5'
+        };
+        res.send(d3.nest().key(d=>IdentifyLevel(parseFloat(d.Money))).entries(data).map(d=>{
+            return {
+                name: d.key,
+                value:d.values.length,
+                level:levels[d.key]
+            }
+        }).sort((a,b)=>a.level-b.level));
+    });
+});
+
 module.exports = router;

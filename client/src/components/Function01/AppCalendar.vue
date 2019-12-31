@@ -137,7 +137,7 @@
     position: absolute;
     top:0;
     left: 20%;
-    width: 15%;
+    width: 10%;
     height: 60%;
   }
 </style>

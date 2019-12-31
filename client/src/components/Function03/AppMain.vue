@@ -40,13 +40,17 @@
                 let flag = true;
                 if(links)
                 links.forEach(s=>{
-                  if(s.source === start && s.target === d.values[i].Dept)
+                  if(s.source === start && s.target === d.values[i].Dept){
                     flag = false;
+                    s.value++;
+                  }
+
                 });
                 if(flag)
                   links.push({
                     source:start,
-                    target:d.values[i].Dept
+                    target:d.values[i].Dept,
+                    value:0
                   });
                 start = d.values[i].Dept;
               }
@@ -205,30 +209,42 @@
 
         */
 
-        // let option = {
-        //   series: [ {
-        //     type: 'graph',
-        //     layout: 'force',
-        //     animation: false,
-        //     data: data.nodes.map(d=> {
-        //       return {'name':d}
-        //     }),
-        //     width: '25%',
-        //     height: '25%',
-        //     force: {
-        //       // initLayout: 'circular'
-        //       // gravity: 0
-        //       repulsion: 500,
-        //       //edgeLength: 8
-        //     },
-        //     edges: data.links
-        //   }]
-        // };
+/*        let option = {
+            tooltip: {
+              trigger: 'item',
+              //formatter: "{a} <br/>{b}: {c} ({d}%)",
+              formatter :(e)=>e.name
+            },
+          series: [ {
+            type: 'graph',
+            layout: 'force',
+            animation: true,
+            data: data.nodes,
+            width: '25%',
+            height: '25%',
+            force: {
+              // initLayout: 'circular'
+              // gravity: 0
+              repulsion: 5000,
+              //edgeLength: 8
+            },
+            edges: data.links,
+            focusNodeAdjacency: true,
+            roam: true
+          }]
+        };*/
+
         let scale = d3.scaleLinear()
         .domain(d3.extent(data.nodes,d=>d.symbolSize))
         .range([10,100]);
+
+        let scale_line = d3.scaleLinear()
+          .domain(d3.extent(data.links,d=>d.value))
+          .range([1,10]);
+
         data.nodes.forEach(function (node) {
           node.itemStyle = null;
+          node.symbolSize = scale(node.symbolSize);
           node.value = node.symbolSize;
           node.label = {
             normal: {
@@ -236,8 +252,9 @@
             }
           };
           node.label.normal.show = node.symbolSize > 30;
-          //node.category = node.attributes.modularity_class;
+          node.category = node.name;
         });
+
 
         let  option = {
           title: {
@@ -247,12 +264,6 @@
             left: 'right'
           },
           tooltip: {},
-          // legend: [{
-          //   // selectedMode: 'single',
-          //   data: categories.map(function (a) {
-          //     return a.name;
-          //   })
-          // }],
           animationDurationUpdate: 1500,
           animationEasingUpdate: 'quinticInOut',
           series : [
@@ -261,12 +272,23 @@
               type: 'graph',
               layout: 'circular',
               data: data.nodes,
-              links: data.links,
-              //categories: categories,
+              links: data.links.map(d=>{
+                return {
+                  source:d.source,
+                  target:d.target,
+                  lineStyle: {
+                    normal: {
+                      width: scale_line(d.value),
+                    }
+                  }
+                }
+              }),
+              categories: data.nodes,
+              focusNodeAdjacency: true,
               roam: true,
               label: {
                 normal: {
-                  position: 'right',
+                  position: 'left',
                   formatter: '{b}'
                 }
               },

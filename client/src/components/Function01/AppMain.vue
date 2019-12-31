@@ -266,10 +266,9 @@
   #main{
     position: absolute;
     top:0;
-    left: 35%;
-    width: 45%;
+    left: 25%;
+    width: 55%;
     height: 60%;
-    /*background-color: #3bff77;*/
   }
   #main_01{
     position: relative;
@@ -279,8 +278,8 @@
   #info{
     position: absolute;
     right: 0;
-    top:20%;
-    width: 15%;
+    top:6%;
+    width: 19%;
     height: auto;
     z-index: 10;
   }
