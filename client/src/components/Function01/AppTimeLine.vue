@@ -193,6 +193,7 @@
             }
           }
         })}
+        add()
         chart.setOption(option);
       }
     }
