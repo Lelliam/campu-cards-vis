@@ -5,10 +5,10 @@ class MysqlPool {
         this.flag = true;
         this.pool = mysql.createPool({
             //connectionLimit: 100,
-            host:'10.10.4.133',
+            host:'localhost',
             user:'root',
             password:'123456',
-            database:'campu_vis',
+            database:'cost_data',
             port:3306,
             multipleStatements: true
         });
