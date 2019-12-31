@@ -159,38 +159,40 @@
                 width: 3
               }
             }
-          }, {
-            name: '昨日',
-            type: 'line',
-            smooth: true,
-            showSymbol: false,
-            symbol: 'circle',
-            symbolSize: 6,
-            data: [],
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(216, 244, 247,1)'
-                }, {
-                  offset: 1,
-                  color: 'rgb(112,226,247)'
-                }], false)
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#599cff'
-              }
-            },
-            lineStyle: {
-              normal: {
-                width: 3
-              }
-            }
           }]
         };
-
+        function add(data){
+        option.series.push({
+          name: '昨日',
+          type: 'line',
+          smooth: true,
+          showSymbol: false,
+          symbol: 'circle',
+          symbolSize: 6,
+          data: [10,30,40,50,20,1,3,4,6,10,20,30],
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0,
+                color: 'rgba(216, 244, 247,1)'
+              }, {
+                offset: 1,
+                color: 'rgb(112,226,247)'
+              }], false)
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: '#599cff'
+            }
+          },
+          lineStyle: {
+            normal: {
+              width: 3
+            }
+          }
+        })}
+        add()
         chart.setOption(option);
       }
     }
