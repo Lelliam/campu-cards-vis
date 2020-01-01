@@ -3,19 +3,28 @@
 </template>
 
 <script>
-    export default {
-        name: "AppMeal",
-      mounted() {
-        this.init();
+  export default {
+    name: "AppRadar",
+    mounted() {
+      //this.init();
+     this.getTestData();//this指向getTestData函数
+    },
+    methods:{
+      getTestData(){
+        this.$axios.get('/f5_cost_rate',{params:{
+          card_no:'181318'
+          }}).then(res=>{//异步执行调用数据
+          console.log(res.data);//响应数据
+          this.init(res.data);//让this指向的init方法响应数据
+        })
       },
-      methods:{
-        init(){
-          let chart = this.$echarts.init(document.getElementById('meal_05'));
+      init(data){//将数据传入要画的echarts图中名称是init
+
+        let chart = this.$echarts.init(document.getElementById('meal_05'));
 
           let option = {
             "title": {
-              "text": "第三采油厂",
-              "subtext": "总数: 599",
+              "text": "食堂",
               "textStyle": {
                 "color": "#fff",
                 "fontSize": 60
