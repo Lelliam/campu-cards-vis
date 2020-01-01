@@ -6,10 +6,11 @@
         <AppRadar></AppRadar>
         <AppTimeLine></AppTimeLine>
         <AppBarLine></AppBarLine>
-        <AppPlot></AppPlot>
-        <AppMatrixTree></AppMatrixTree>
-<!--        <AppMainDetail></AppMainDetail>-->
+<!--        <AppPlot></AppPlot>-->
+<!--        <AppMatrixTree></AppMatrixTree>-->
+        <AppMainDetail></AppMainDetail>
         <AppCalendar></AppCalendar>
+        <AppCostLevel></AppCostLevel>
       </div>
     </Card>
   </div>
@@ -23,10 +24,11 @@
   import AppRadar from "./Function01/AppRadar";
   import AppTimeLine from "./Function01/AppTimeLine";
   import AppBarLine from "./Function01/AppBarLine";
-  import AppMatrixTree from "./Function01/AppMatrixTree";
-  import AppPlot from "./Function01/AppPlot";
-  // import AppMainDetail from "./Function01/AppMainDetail";
+  // import AppMatrixTree from "./Function01/AppMatrixTree";
+  // import AppPlot from "./Function01/AppPlot";
+  import AppMainDetail from "./Function01/AppMainDetail";
   import AppCalendar from "./Function01/AppCalendar";
+  import AppCostLevel from "./Function01/AppCostLevel";
     export default {
         name: "AppFunction01",
         mounted(){
@@ -34,14 +36,15 @@
         methods:{
         },
         components:{
-          AppPlot,
-          AppMatrixTree,
+          // AppPlot,
+          // AppMatrixTree,
           AppBarLine,
           AppTimeLine,
           AppRadar,
           AppMain,
-          // AppMainDetail,
-          AppCalendar
+          AppMainDetail,
+          AppCalendar,
+          AppCostLevel
         }
     }
 </script>

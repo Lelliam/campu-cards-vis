@@ -27,7 +27,7 @@
         let option = {
           //backgroundColor: '#515a6e',
           title: {
-            left:'15%',
+            left:'0',
             top:'10%',
             text: '消费日历',
             //subtext: '',

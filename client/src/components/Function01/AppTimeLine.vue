@@ -5,35 +5,45 @@
 <script>
   export default {
     name: "AppTimeLine",
+    data(){
+      return {
+        majors:['18国际金融'],
+        option:{},
+        chart:null
+      }
+    },
     mounted(){
-      this.getMajorCost();
+      //this.getMajorCost();
+      this.Init();
     },
     methods:{
-      getMajorCost(major = '18软件技术'){
-        this.$axios.get('major_cost',{params:{
+      getMajorCost(major){
+        return this.$axios.get('major_cost',{params:{
             major:major
-          }}).then(res=>{
-          console.log(res.data);
-          this.Draw(res.data);
+          }});
+      },
+      Init(major='18国际金融'){
+        this.getMajorCost(major).then((res1)=>{
+          this.Draw(res1.data,major);
         });
       },
-
-      Draw(data){
+      Draw(data,major){
 
         let echarts = this.$echarts;
 
-        let chart = this.$echarts.init(document.getElementById('time_line'));
+        this.chart = this.$echarts.init(document.getElementById('time_line'));
 
-        let option = {
+        this.option = {
           title: {
-            show:false,
-            text: '今日&昨日',
+            show:true,
+            text: '专业消费人数时序变化信息',
             left: '50%',
             textAlign: 'center'
           },
           tooltip: {
             trigger: 'axis',
             axisPointer: {
+              type:'line',
               lineStyle: {
                 color: '#ddd'
               }
@@ -41,14 +51,18 @@
             backgroundColor: 'rgba(255,255,255,1)',
             padding: [5, 10],
             textStyle: {
-              color: '#7588E4',
+              color: 'rgba(29,24,26,0.67)',
             },
             extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
           },
           legend: {
-            right: 20,
-            orient: 'vertical',
-            data: ['A','B']
+            right: 'center',
+            top:'7%',
+            //orient: 'vertical',
+            data: [major],
+            itemStyle:{
+              opacity:.4
+            }
           },
           dataZoom: [{
             type: 'slider',
@@ -79,7 +93,6 @@
             boundaryGap: false,
             splitLine: {
               show: true,
-
               interval: 'auto',
               lineStyle: {
                 color: ['#D4DFF5'],
@@ -132,7 +145,7 @@
             }
           },
           series: [{
-            name: '今日',
+            name: major,
             type: 'line',
             smooth: true,
             showSymbol: false,
@@ -152,47 +165,72 @@
             },
             itemStyle: {
               normal: {
-                color: '#f7b851'
+                color: '#c23531'
               }
             },
             lineStyle: {
               normal: {
-                width: 3
-              }
-            }
-          }, {
-            name: '昨日',
-            type: 'line',
-            smooth: true,
-            showSymbol: false,
-            symbol: 'circle',
-            symbolSize: 6,
-            data: [],
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: 'rgba(216, 244, 247,1)'
-                }, {
-                  offset: 1,
-                  color: 'rgb(112,226,247)'
-                }], false)
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#599cff'
-              }
-            },
-            lineStyle: {
-              normal: {
-                width: 3
+                width: 2,
+                opacity:.4
               }
             }
           }]
         };
-
-        chart.setOption(option);
+        this.chart.setOption(this.option);
+      }
+    },
+    computed:{
+      major_cancel(){
+        return this.$store.state.major_cancel;
+      }
+    },
+    watch:{
+      major_cancel:{
+        handler(state){
+          if(state.operate === 'pop'){
+            this.option.legend.data.splice(this.option.legend.data.indexOf(state.major),1);
+            this.option.series.splice(this.option.series.findIndex(d=>d.name === state.major),1);
+            this.chart.setOption(this.option,true);
+          }
+          else{
+            this.getMajorCost(state.major).then(res=>{
+              this.option.legend.data.push(state.major);
+              this.option.series.push({
+                name: state.major,
+                type: 'line',
+                smooth: true,
+                showSymbol: false,
+                symbol: 'circle',
+                symbolSize: 6,
+                data: res.data.map(d=>d.value),
+                areaStyle: {
+                  normal: {
+                    color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                      offset: 0,
+                      color: 'rgba(199, 237, 250,0.5)'
+                    }, {
+                      offset: 1,
+                      color: 'rgba(247,213,172,0.68)'
+                    }], false)
+                  }
+                },
+                itemStyle: {
+                  normal: {
+                    color: state.color,
+                  }
+                },
+                lineStyle: {
+                  normal: {
+                    width: 2,
+                    opacity:.4
+                  }
+                }
+              });
+              this.chart.setOption(this.option,true);
+            });
+          }
+        },
+        deep:true
       }
     }
   }

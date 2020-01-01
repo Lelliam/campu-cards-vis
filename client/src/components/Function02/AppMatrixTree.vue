@@ -4,7 +4,6 @@
 
 <script>
   import * as d3 from "d3";
-
   export default {
     name: "AppMatrixTree",
     data() {
@@ -16,7 +15,8 @@
     },
     methods: {
       getData(){
-        this.$axios.get('f1_alldept_').then(res=>{
+        this.$axios.get('f2_canteen_').then(res=>{
+          console.log(res.data);
           this.MatrixTree(res.data);
         })
       },
@@ -28,15 +28,13 @@
 
         let option = {
           title: {
-            text: '消费项目分布',
-            //subtext: '2016/04',
-            top:'5%',
-            left: 'center'
+            text: '食堂消费项目分布',
+            top:'0',
+            left: '0'
           },
           tooltip: {
             formatter:function (info) {
-              console.log(info);
-              return info.data.per_cost;
+              return info.data.term_no;
             }
           },
           legend:{
@@ -47,7 +45,7 @@
             type: 'treemap',
             visibleMin: 1000,
             data: data,
-            //leafDepth: 2,
+            leafDepth: 2,
             levels: [
               {
                 itemStyle: {
@@ -95,9 +93,9 @@
 <style scoped>
   #matrix_tree{
     position: absolute;
-    top:0;
-    right: 0;
-    width: 30%;
-    height: 60%;
+    bottom:0;
+    left: 0;
+    width: 20%;
+    height: 40%;
   }
 </style>

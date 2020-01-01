@@ -10,6 +10,11 @@ const store = new Vuex.Store({
   // 定义状态
   state: {
     major_state: '18国际金融',
+    major_cancel: {
+      major:'',
+      operate:'',
+      color:''
+    }
   },
   mutations: mutation,
   actions: action,

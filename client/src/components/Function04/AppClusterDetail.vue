@@ -1,48 +1,36 @@
 <template>
-  <div id="detail">
-<!--    <Card v-for="(i,d) in list" :key="i" :style="{margin: '10px',minHeight: '150px'}">-->
-<!--      <p slot="title">-->
-<!--        <Icon type="ios-film-outline"></Icon>-->
-<!--        专业名称{{i}}-->
-<!--      </p>-->
-<!--      <a @click="close(i)" slot="extra">-->
-<!--        <Icon type="ios-loop-strong"></Icon>-->
-<!--        X-->
-<!--      </a>-->
-<!--      <div class="major_detail" :id="'major'+d"></div>-->
-<!--    </Card>-->
-  </div>
+  <div id="detail"></div>
 </template>
 
 <script>
+  import * as d3 from 'd3'
   export default {
-    name: "AppMainDetail",
-    data(){
-      return  {
-        list:['18市场营销','18软件技术'],
-      }
-    },
+    name: "AppClusterDetail",
     mounted() {
-      //this. SendData( '18软件技术',1);
       this.getData();
     },
-    methods: {
+    methods:{
       getData(){
-        this.$axios.get('/f1_all_meal').then(res=>{
-          this.Draw(res.data);
-        })
+        this.$axios.get('cluster_detail').then(res=>{
+          this.Draw(res.data.slice(0,5));
+        });
       },
       Draw(data){
         let echarts = this.$echarts;
 
         let chart = this.$echarts.init(document.getElementById('detail'));
 
-        console.log(data.splice(0,5).map(d=>d.data.morn));
+        console.log(data);
+
+        let day_max = 30;
+        let day_cost = d3.max(data,d=>parseFloat(d.data.days_cost));
+        let total = d3.max(data,d=>parseFloat(d.data.sum_cost));
+        let count = d3.max(data,d=>parseFloat(d.data.cost_count));
 
         let option = {
           //backgroundColor:'#323a5e',
           title: {
-            text: '三餐消费信息',
+            text: '消费等级详细信息',
             x:'6%'
           },
           tooltip: {
@@ -59,7 +47,7 @@
             containLabel: true
           },
           legend: {
-            data: ['morn', 'noon', 'even'],
+            data: ['days','day_cost','total','count'],
             right: 10,
             top:12,
             textStyle: {
@@ -71,7 +59,7 @@
           },
           xAxis: {
             type: 'category',
-            data: data.slice(0,5).map(d=>d.major),
+            data: data.map(d=>d.name),
             splitLine: {
               show: true,
               interval: 'auto',
@@ -100,9 +88,9 @@
 
           yAxis: {
             type: 'value',
-            max:'10',
+            max:1.5,
             splitLine: {
-              show: true,
+              show: false,
               interval: 'auto',
               lineStyle: {
                 color: ['#D4DFF5'],
@@ -119,6 +107,7 @@
               }
             },
             axisLabel: {
+              show:false,
               margin: 10,
               textStyle: {
                 color:'#7e7e7e',
@@ -126,33 +115,33 @@
               }
             }
           },
-/*          "dataZoom": [{
-            "show": true,
-            "height": 12,
-            "xAxisIndex": [
-              0
-            ],
-            bottom:'8%',
-            "start": 10,
-            "end": 90,
-            handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-            handleSize: '110%',
-            handleStyle:{
-              color:"#d3dee5",
+          /*          "dataZoom": [{
+                      "show": true,
+                      "height": 12,
+                      "xAxisIndex": [
+                        0
+                      ],
+                      bottom:'8%',
+                      "start": 10,
+                      "end": 90,
+                      handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
+                      handleSize: '110%',
+                      handleStyle:{
+                        color:"#d3dee5",
 
-            },
-            textStyle:{
-              color:"#fff"},
-            borderColor:"#90979c"
-          }, {
-            "type": "inside",
-            "show": true,
-            "height": 15,
-            "start": 1,
-            "end": 35
-          }],*/
+                      },
+                      textStyle:{
+                        color:"#fff"},
+                      borderColor:"#90979c"
+                    }, {
+                      "type": "inside",
+                      "show": true,
+                      "height": 15,
+                      "start": 1,
+                      "end": 35
+                    }],*/
           series: [{
-            name: 'morn',
+            name: 'days',
             type: 'bar',
             barWidth: '15%',
             itemStyle: {
@@ -167,29 +156,28 @@
                 barBorderRadius: 12,
               },
             },
-            data: data.slice(0,5).map(d=>d.data.morn)
+            data: data.map(d=>(d.data.days/day_max).toFixed(2))
+          }, {
+            name: 'total',
+            type: 'bar',
+            barWidth: '15%',
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#8bd46e'
+                }, {
+                  offset: 1,
+                  color: '#09bcb7'
+                }]),
+                barBorderRadius: 11,
+              }
+
+            },
+            data: data.map(d=>(parseFloat(d.data.sum_cost)/total).toFixed(2))
           },
             {
-              name: 'noon',
-              type: 'bar',
-              barWidth: '15%',
-              itemStyle: {
-                normal: {
-                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: '#8bd46e'
-                  }, {
-                    offset: 1,
-                    color: '#09bcb7'
-                  }]),
-                  barBorderRadius: 11,
-                }
-
-              },
-              data: data.slice(0,5).map(d=>d.data.noon)
-            },
-            {
-              name: 'even',
+              name: 'day_cost',
               type: 'bar',
               barWidth: '15%',
               itemStyle: {
@@ -204,7 +192,24 @@
                   barBorderRadius: 11,
                 }
               },
-              data: data.slice(0,5).map(d=>d.data.even)
+              data: data.map(d=>(d.data.days_cost/day_cost).toFixed(2))
+            },{
+              name: 'count',
+              type: 'bar',
+              barWidth: '15%',
+              itemStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: '#f77d8c'
+                  }, {
+                    offset: 1,
+                    color: '#f14016'
+                  }]),
+                  barBorderRadius: 11,
+                }
+              },
+              data: data.map(d=>(parseInt(d.data.cost_count)/count).toFixed(2))
             }]
         };
 
@@ -212,30 +217,30 @@
           currentIndex: -1,
         };
 
-/*        setInterval(function () {
-          let dataLen = option.series[0].data.length;
+        /*        setInterval(function () {
+                  let dataLen = option.series[0].data.length;
 
-          // 取消之前高亮的图形
-          chart.dispatchAction({
-            type: 'downplay',
-            seriesIndex: 0,
-            dataIndex: app.currentIndex
-          });
-          app.currentIndex = (app.currentIndex + 1) % dataLen;
-          //console.log(app.currentIndex);
-          // 高亮当前图形
-          chart.dispatchAction({
-            type: 'highlight',
-            seriesIndex: 0,
-            dataIndex: app.currentIndex,
-          });
-          // 显示 tooltip
-          chart.dispatchAction({
-            type: 'showTip',
-            seriesIndex: 0,
-            dataIndex: app.currentIndex
-          });
-        }, 1000);*/
+                  // 取消之前高亮的图形
+                  chart.dispatchAction({
+                    type: 'downplay',
+                    seriesIndex: 0,
+                    dataIndex: app.currentIndex
+                  });
+                  app.currentIndex = (app.currentIndex + 1) % dataLen;
+                  //console.log(app.currentIndex);
+                  // 高亮当前图形
+                  chart.dispatchAction({
+                    type: 'highlight',
+                    seriesIndex: 0,
+                    dataIndex: app.currentIndex,
+                  });
+                  // 显示 tooltip
+                  chart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex: 0,
+                    dataIndex: app.currentIndex
+                  });
+                }, 1000);*/
 
         chart.setOption(option);
       }
@@ -246,13 +251,9 @@
 <style scoped>
   #detail{
     position: absolute;
-    top:30%;
+    bottom:0;
     left: 0;
-    width: 26%;
-    height: 30%;
-    overflow-y:auto;
-    overflow-x: hidden;
+    width: 30%;
+    height: 40%;
   }
-
-
 </style>
