@@ -2,7 +2,8 @@
   <div id="function03">
     <Card :style="{margin: '80px 10px 0 10px', background: '#fff', minHeight: '89vh'}">
       <div id="container">
-        <AppMain />
+        <AppMain></AppMain>
+        <AppDept />
       </div>
     </Card>
   </div>
@@ -10,6 +11,7 @@
 
 <script>
   // import AppTest from "./Function03/AppTest";
+  import AppDept from "./Function03/AppDept";
   import AppMain from "./Function03/AppMain";
     export default {
         name: "AppFunction03",
@@ -19,6 +21,7 @@
         },
         components:{
           // AppTest,
+          AppDept,
           AppMain
         }
     }

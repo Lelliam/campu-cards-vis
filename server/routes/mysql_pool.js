@@ -8,7 +8,7 @@ class MysqlPool {
             host:'localhost',
             user:'root',
             password:'123456',
-            database:'cost_data',
+            database:'campu_vis',
             port:3306,
             multipleStatements: true
         });

@@ -301,7 +301,7 @@
   #main{
     position: absolute;
     top:0;
-    left: 20%;
+    left: 30%;
     width: 45%;
     height: 60%;
   }

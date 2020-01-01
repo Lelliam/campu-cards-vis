@@ -217,7 +217,6 @@
                 itemStyle: {
                   normal: {
                     color: state.color,
-
                   }
                 },
                 lineStyle: {

@@ -7,27 +7,32 @@
   export default {
     name: "AppMajor",
     mounted() {
-      this.Draw([{name:'Major1',value:58},{name:'Major2',value:88}]);
+      this.getData('第一食堂');
     },
     methods:{
-      Draw(data){
+      getData(canteen){
+        this.$axios.get('/canteen_majors',{params:{
+            Dept:canteen
+          }}).then(res=>{
+          this.Draw(res.data,canteen);
+        });
+      },
+      Draw(data,canteen){
         let chart = this.$echarts.init(document.getElementById('major'));
+
+        let echarts = this.$echarts;
 
         let scale = d3.scaleLinear()
           .domain(d3.extent(data,d=>d.value))
-          .range([50,100]);
+          .range([20,80]);
 
         let option = {
           //backgroundColor: '#e6eefc',
           title: {
             top: '0',
-            left: 'center',
-            text: '专业份数',
-            textStyle: {
-              align: 'center',
-              color: '#060204',
-              fontSize: 15
-            }
+            left: '0',
+            text: `就餐人群专业分布`,
+            subtext:`${canteen}`
           },
           tooltip: {},
           animationDurationUpdate: function(idx) {
@@ -37,21 +42,46 @@
           animationEasingUpdate: 'bounceIn',
           color: ['#ff598f', '#3e33ff', '#3cff4c'],
           series: [{
+            zoom:.8,
             type: 'graph',
             layout: 'force',
             force: {
-              repulsion: 500,
-              edgeLength: 10
+              repulsion: 40,
+              edgeLength: 3
             },
             roam: true,
+            itemStyle: {
+              normal: {
+                shadowBlur: 10,
+                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                shadowOffsetY: 5,
+                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                  offset: 0,
+                  color: 'rgb(251, 118, 123)'
+                }, {
+                  offset: 1,
+                  color: 'rgb(204, 46, 72)'
+                }])
+              }
+            },
             label: {
               normal: {
-                show: true
+                show: true,
+                formatter: function(param){
+                  if(param.value>1000)
+                  return param.name;
+                  else
+                    return '';
+                },
+                textStyle: {
+                  color: 'rgba(0,0,0,0.55)',
+                  fontSize: 12,
+                }
               }
             },
             data: data.map(d=>{
               return {
-                "name": d.name,
+                "name": d.name.replace('18',''),
                 "value": d.value,
                 "symbolSize": scale(d.value),
                 "draggable": true,
@@ -70,9 +100,8 @@
   #major{
     position: absolute;
     top:30%;
-    left: 0%;
-    width: 20%;
+    left: 0;
+    width: 23%;
     height: 30%;
-    /*background-color: #42ffca;*/
   }
 </style>

@@ -6,215 +6,295 @@
   export default {
     name: "AppTimeLine",
     mounted() {
-      this.Draw(1);
+      //this.Draw(1);
+      this.getData();
     },
     methods:{
+      getData(){
+        this.$axios.get('canteen_10min').then(res=>{
+          //console.log(res.data);
+          this.Draw(res.data);
+        });
+      },
       Draw(data){
 
-        let chart = this.$echarts.init(document.getElementById('time_line'));
+        let echarts = this.$echarts;
 
-        //如果是十分钟折线图，那么横坐标就没多少意义了
-        let xData = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-        let yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16];
-        let yData3 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData4 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData5 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData6 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
+        this.chart = this.$echarts.init(document.getElementById('time_line'));
 
-        let option = {
+        this.option = {
           title: {
-            top: '0',
-            left: 'center',
-            text: '各食堂消费次数与时间的关系（时间间隔10min）',
-            textStyle: {
-              align: 'center',
-              color: '#ff86ac',
-              fontSize: 15
-            }
-
+            show:true,
+            text: '食堂消费人数时序变化信息',
+            left: '50%',
+            textAlign: 'center'
           },
-            //视图主要背景
-            // backgroundColor: '#043491',
           tooltip: {
             trigger: 'axis',
             axisPointer: {
-              type: 'cross'
-            }
+              type:'line',
+              lineStyle: {
+                color: '#ddd'
+              },
+            },
+            backgroundColor: 'rgba(255,255,255,1)',
+            padding: [5, 10],
+            textStyle: {
+              color: 'rgba(29,24,26,0.67)',
+            },
+            extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
           },
           legend: {
-            x: 'center',
-            y: '40px',
-            textStyle: {
-              color: '#f23a5d',
-              fontSize: 13,
-            },
-            icon: 'circle',
-            data: ['第一食堂', '第二食堂','第三食堂','第四食堂','第五食堂','教师食堂']
+            right: 'center',
+            top:'7%',
+            //orient: 'vertical',
+            data: data.map(d=>d.dept),
+            itemStyle:{
+              opacity:.4
+            }
           },
           dataZoom: [{
             type: 'slider',
             show: true,
             height: 20,
-            left: '10%',
-            right: '10%',
+            left: '5%',
+            right: '5%',
             bottom: '2%',
-            start: 50,
-            end: 100,
+            start: 0,
+            end: 3.7,
             textStyle: {
-              color: '#d4ffff',
+              color: 'rgba(29,24,26,0.86)',
               fontSize: 11,
             },
           }, {
             type: 'inside'
           }
-
           ],
           grid: {
+            top: '20%',
             right: '5%',
-            bottom: '10%',
-            left: '2%',
-            top: '80px',
-            containLabel: true
+            left: '5%',
+            bottom: '15%'
           },
-          xAxis: [{
+          xAxis: {
             type: 'category',
-            data: xData,
-            name: '时间',
-            nameTextStyle: {
-              color: '#2314ff'
-            },
-            axisLine: {
+            data: data[5].data.map(d=>d.date),
+            boundaryGap: false,
+            splitLine: {
+              show: true,
+              interval: 'auto',
               lineStyle: {
-              color: '#0B4CA9'
+                color: ['#D4DFF5'],
+                width:.5
               }
             },
             axisTick: {
-              show: false,
+              show: false
             },
-            axisLabel: {
-              show: true,
-              textStyle: {
-                color: "#FFF",
-                fontSize: 12,
-              },
-              //interval:0,
-              //rotate:30
-            },
-          }],
-          yAxis: [{
-            type: 'value',
-            name: '次数',
-            nameTextStyle: {
-              color: '#d4ffff'
-            },
-            position: 'left',
             axisLine: {
+              show:false,
               lineStyle: {
-                color: '#0B4CA9'
-
+                color: '#7e7e7e'
               }
             },
+            axisLabel: {
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
+          },
+          yAxis: {
+            type: 'value',
             splitLine: {
               lineStyle: {
-                color: "#0B4CA9",
+                color: ['#D4DFF5'],
+                width:.5
               }
-
+            },
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false,
+              lineStyle: {
+                color: '#7e7e7e'
+              }
             },
             axisLabel: {
-              color: '#d4ffff',
-              fontSize: 12,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              },
+              lineStyle: {
+                color: 'rgba(29,24,26,0.51)',
+              }
             }
-          }, ],
+          },
           series: [{
             name: '第一食堂',
             type: 'line',
-            yAxisIndex: 0,
-            symbolSize: 12,
-            itemStyle: {
+            smooth: true,
+            showSymbol: false,
+            symbol: 'circle',
+            symbolSize: 6,
+            data: data[0].data.map(d=>d.value),
+            areaStyle: {
               normal: {
-                color: '#FC30EE',
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(247,213,172,0.68)'
+                }], false)
               }
             },
-            data: yData1
+            itemStyle: {
+              normal: {
+                color: '#15c225',
+                opacity:.4
+              }
+            },
+            lineStyle: {
+              normal: {
+                width: 2,
+                opacity:.4
+              }
+            }
           },
             {
               name: '第二食堂',
               type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
+              smooth: true,
+              showSymbol: false,
+              symbol: 'circle',
+              symbolSize: 6,
+              data: data[1].data.map(d=>d.value),
+              areaStyle: {
                 normal: {
-                  color: '#0EF100',
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(199, 237, 250,0.5)'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(247,213,172,0.68)'
+                  }], false)
                 }
               },
-              data: yData2
+              itemStyle: {
+                normal: {
+                  color: '#3cc2b8',
+                  opacity:.4
+                }
+              },
+              lineStyle: {
+                normal: {
+                  width: 2,
+                  opacity:.4
+                }
+              }
             },
-              {
+            {
               name: '第三食堂',
               type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#83fcc9',
-                  }
+              smooth: true,
+              showSymbol: false,
+              symbol: 'circle',
+              symbolSize: 6,
+              data: data[2].data.map(d=>d.value),
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(199, 237, 250,0.5)'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(247,213,172,0.68)'
+                  }], false)
+                }
               },
-              data: yData3
-          },
-           {
-              name: '第四食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
               itemStyle: {
-                  normal: {
-                      color: '#3539fc',
-                  }
+                normal: {
+                  color: '#ff740a',
+                  opacity:.4
+                }
               },
-              data: yData4
-          },
-            {
-              name: '第五食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#e6eefc',
-                  }
-              },
-              data: yData5
-          },
+              lineStyle: {
+                normal: {
+                  width: 2,
+                  opacity:.4
+                }
+              }
+            },
             {
               name: '教师食堂',
               type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#55fc27',
-                  }
+              smooth: true,
+              showSymbol: false,
+              symbol: 'circle',
+              symbolSize: 6,
+              data: data[4].data.map(d=>d.value),
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(199, 237, 250,0.5)'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(247,213,172,0.68)'
+                  }], false)
+                }
               },
-              data: yData6
-          },
-
-          ]
+              itemStyle: {
+                normal: {
+                  color: '#5268ff',
+                  opacity:.4
+                }
+              },
+              lineStyle: {
+                normal: {
+                  width: 2,
+                  opacity:.4
+                }
+              }
+            },
+            {
+              name: '第五食堂',
+              type: 'line',
+              smooth: true,
+              showSymbol: false,
+              symbol: 'circle',
+              symbolSize: 6,
+              data: data[5].data.map(d=>d.value),
+              areaStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgba(199, 237, 250,0.5)'
+                  }, {
+                    offset: 1,
+                    color: 'rgba(247,213,172,0.68)'
+                  }], false)
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: '#186bc2',
+                  opacity:.4
+                }
+              },
+              lineStyle: {
+                normal: {
+                  width: 2,
+                  opacity:.4
+                }
+              }
+            }]
         };
-
-        chart.setOption(option);
-
-      },
-      init(){
-        // this.$http.get('query', {
-        //   params: {
-        //     sql: `select Sex,Date from cost_pro where Sex != 'null'`
-        //   }
-        // }).then(res=>{
-        //   console.log(res.body);//Data
-        //   Draw(1);
-        // });
-        //Draw(1);
+        this.chart.setOption(this.option);
       }
     }
   }

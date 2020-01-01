@@ -3,461 +3,176 @@
 </template>
 
 <script>
-    import * as d3 from "d3";
+  import * as d3 from 'd3'
+  import geoJson from '../../../static/map_ls.js'
+  export default {
+    name: "AppCanteen",
+    data(){
+      return{
+      }
+    },
+    mounted() {
+      this.getAllDept();
+    },
+    methods:{
+      getAllDept(){
+        this.$axios.get('all_dept').then(res=>{
+          this.Draw(res.data);
+        });
+      },
+      Draw(data){
 
-    export default {
-        name: "AppCanteen",
-        data(){
-          return{
-            data_One:[],
-            data_Two:[],
-            data_Three:[],
-            data_Four:[],
-            data_Five:[],
-            data_Teacher:[]
-          }
-        },
-        mounted() {
-            //this.Draw();
-          //this.Init();
-        },
-        methods:{
-          Init(){
+        let chart = this.$echarts.init(document.getElementById('canteen'));
 
-              let keyvalue=[];
-              for(let key in teacher_Result){
-                keyvalue.push({name:key,value:teacher_Result[key]})
-              }
-              console.log(keyvalue)
+        this.$echarts.registerMap('ls', geoJson);
 
-
-                let  data = {
-                    title: '**省',
-                    dataSex: [{
-                        // name: '',
-                        value: '100.00',
-                    },
-                        {
-                            //  name: '',
-                            value: '300.00',
-                        },{
-                            //name: '',
-                            value: '200.00',
-                        }],
-                    dataAge: [{
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }],
-                    dataHostype: [{
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }],
-                    dataDis: [{
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }, {
-                        name: '',
-                        value: '200.00'
-                    }],
-                    dataCH: [{
-                        name: '',
-                        value: '800.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }, {
-                        name: '',
-                        value: '100.00'
-                    }],
-                    dataLL: keyvalue
-                };
-                let option = {
-                    // backgroundColor: '#05274C',
-
-
-                    color: ['#2AC9FD', '#76FBC0', '#35C96E', '#FCC708', '#48B188', '#5957C2', '#4A5D73'],
-
-                    title: [{
-                        top: '20%',
-                        text: '第一食堂',
-                        textStyle: {
-                            color: '#3494BD',
-                            fontSize: 18,
-                            align: 'center',
-                        },
-                        left: '0%',//标题的位置
-                    },
-                        {
-                            top: '20%',
-                            text:'第二食堂',
-                            textStyle: {
-                                color: '#3494BD',
-                                fontSize: 18,
-                                align: 'center',
-                            },
-                            left: '32%',
-                        }, {
-                            top: '20%',
-                            text:'第三食堂',
-                            textStyle: {
-                                color: '#3494BD',
-                                fontSize: 18,
-                                align: 'center',
-                            },
-                            left: '54%',
-                        },
-                        {
-                            top: '80%',
-                            text: '第四食堂',
-                            textStyle: {
-                                color: '#3494BD',
-                                fontSize: 18,
-                                align: 'center',
-                            },
-                            left: '50%',
-
-                        },{
-                            top: '8' +
-                                '' +
-                                '0%',
-                            text: '第五食堂',
-                            textStyle: {
-                                color: '#3494BD',
-                                fontSize: 18,
-                                align: 'center',
-                            },
-                            left: '81%',
-                        },{
-                            top: '20%',
-                            text: '教师食堂',
-                            textStyle: {
-                                color: '#3494BD',
-                                fontSize: 18,
-                                align: 'center',
-                            },
-                            left: '81%',
-                        }
-                    ],
-
-
-
-
-                    series: [
-                        //吉林省用药年龄分布 begin
-
-                        {
-                            //name: '用药性别数量',
-                            color: ['#2AC9FD', '#76FBC0', '#35C96E', '#FCC708', '#48B188', '#5957C2'],
-                            type: 'pie',
-                            radius: ['30%', '25%'],
-                            center: ['15%', '20%'],
-                            labelLine: {
-
-                                normal: {
-                                    show:false,
-                                    //length: 25,
-                                    // length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        //type: 'solid'
-                                    }
-                                }
-
-
-                            },
-
-                            label: {
-                                normal: {
-                                    show:false,
-                                    //formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -80],
-                                    height: 70,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataAge,
-                        },
-                        //end
-                        //吉林省用药性别分布 begin
-                        {
-                            //name: '用药性别数量',
-                            color: ['#76FBC0', '#2AC9FD','red'],
-                            type: 'pie',
-                            radius: ['20%', '15%'],
-                            center: ['50%', '20%'],
-                            labelLine: {
-                                normal: {
-                                    show:false,
-                                    //length: 100,
-                                    //length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        type: 'solid'
-                                    }
-                                }
-
-                            },
-                            label: {
-                                normal: {
-                                    //show:false,
-                                    // formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -90],
-                                    height: 70,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataSex,
-                        },
-                        //end
-                        //吉林省用药量机构类别占比 begin
-                        {
-                            //name: '用药性别数量',
-                            color: ['#76FBC0', '#29C6FA', '#FCC708', '#5957C2'],
-                            type: 'pie',
-                            radius: ['16%', '23%'],
-                            center: ['30%', '60%'],
-                            labelLine: {
-                                normal: {
-                                    show:false,
-                                    // length: 25,
-                                    //length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        type: 'solid'
-                                    }
-                                }
-
-                            },
-                            label: {
-                                normal: {
-                                    //show:false,
-                                    // formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -80],
-                                    height: 75,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataHostype,
-                        },
-                        //end
-                        //药品治疗疾病类型占比 begin
-                        {
-                            //name: '用药性别数量',
-                            color: ['#76FBC0', '#2AC9FD', '#35C96E', '#FCC708', '#5957C2', '#4A5D73'],
-                            type: 'pie',
-                            radius: ['16%', '23%'],
-                            center: ['88%', '60%'],
-                            labelLine: {
-                                normal: {
-                                    show:false,
-                                    // length: 25,
-                                    //length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        type: 'solid'
-                                    }
-                                }
-
-                            },
-                            label: {
-                                normal: {
-                                    // show:false,
-                                    //formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -80],
-                                    height: 75,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataDis,
-                        },
-
-                        //end
-                        {
-                            //name: '用药性别数量',
-                            color: ['#76FBC0', '#29C6FA', '#FCC708', '#5957C2'],
-                            type: 'pie',
-                            radius: ['16%', '23%'],
-                            center: ['62%', '60%'],
-                            labelLine: {
-                                normal: {
-                                    show:false,
-                                    // length: 25,
-                                    //length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        type: 'solid'
-                                    }
-                                }
-
-                            },
-                            label: {
-                                normal: {
-                                    //show:false,
-                                    // formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -80],
-                                    height: 75,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataCH,
-                        },
-                        //end
-                        {
-                            //name: '用药性别数量',
-                            color: ['#76FBC0', '#29C6FA', '#FCC708', '#5957C2'],
-                            type: 'pie',
-                            radius: ['16%', '23%'],
-                            center: ['80%', '16%'],
-                            labelLine: {
-                                normal: {
-                                    show:false,
-                                    // length: 25,
-                                    //length2: 65,
-                                    lineStyle: {
-                                        // color: '#41B3DC',
-                                        type: 'solid'
-                                    }
-                                }
-
-                            },
-                            label: {
-                                normal: {
-                                    //show:false,
-                                    // formatter: '{b} : ' + '{d}%' + '\n' + '{c}' + '（万元）',
-                                    borderWidth: 0,
-                                    borderRadius: 4,
-                                    padding: [0, -80],
-                                    height: 75,
-                                    fontSize: 13,
-                                    align: 'center',
-                                    color: '#3494BD',
-                                    rich: {
-                                        b: {
-                                            fontSize: 13,
-                                            lineHeight: 5,
-                                            color: '#41B3DC'
-                                        }
-
-                                    }
-                                }
-                            },
-                            data: data.dataLL,
-                        },
-                        //end
-
-                    ]
-                };
-
-                myChart.setOption(option);
-
-            },
+        let geoCoordMap = {
+          '财务处':[120.543338882,31.9087250105],
+          '红太阳超市':[120.55881073,31.9320563076],
+          '第五食堂':[120.583760732,31.8220902091],
+          '第二食堂':[120.631224777,31.9192103578],
+          '第一食堂':[120.675220625,31.8233475975],
+          '第三食堂':[120.728973474,31.8658316614],
+          '第四食堂':[120.528945004,31.870892279],
+          '好利来食品店':[120.725388101,31.9058733739]
         }
+
+        // let color = [
+        //   '#38c0ff',
+        //   '#ff553e',
+        //   '#595bff',
+        //   '#ff740a',
+        //   '#47ff90',
+        //   '#f85fff',
+        //   '#b53d5f',
+        //   '#ffe454'];
+
+        let scale = d3.scaleLinear()
+          .domain(d3.extent(data,d=>d.value))
+          .range([1,100]);
+
+        let option = {
+          tooltip: {
+            trigger: 'item',
+            //formatter: "{a} <br/>{b}: {c} ({d}%)",
+            formatter : function(e) {
+              if (typeof (e.value)[2] == "undefined") {
+                return e.name+':'+e.value+'人';
+              } else {
+                return '地点<br>' + e.name + ':' + e.value[2];
+              }
+            }
+          },
+          geo: {
+            map: 'ls',
+            show: true,
+            roam: true,
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            itemStyle: {
+              emphasis: {
+                areaColor: 'rgba(29,24,26,0.2)',
+              },
+              normal: {
+                areaColor: 'rgba(29,24,26,0.2)',
+                borderColor: 'rgb(255,255,255)',
+                //shadowColor: '#031525',
+                //shadowBlur: 5
+              }
+            },
+            zoom:1.2,
+          },
+          series: [{
+              name: '地点',
+              type: 'scatter',
+              coordinateSystem: 'geo',
+              symbol: 'circle',
+              symbolSize: function (val) {
+                return scale(val[2]);
+              },
+              label: {
+                normal: {
+                  show: false,
+                  formatter: function(value){
+                    return value.value[2]
+                  },
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12,
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function(param){
+                    // return color[param.dataIndex];
+                    return '#ff740a'
+                  }, //标志颜色
+                  //shadowBlur: 10,
+                  shadowColor: 'rgba(29,24,26,0.81)',
+                }
+              },
+              zlevel: 6,
+              data: this.convertData(geoCoordMap,data),
+            },
+            {
+              name: 'Top 3',
+              type: 'effectScatter',
+              coordinateSystem: 'geo',
+              data: this.convertData(geoCoordMap,data.sort(function (a, b) {
+                return b.value - a.value;
+              }).slice(0, 3)),
+              symbolSize: function (val) {
+                return scale(val[2]);
+              },
+              showEffectOn: 'render',
+              rippleEffect: {
+                brushType: 'stroke'
+              },
+              hoverAnimation: true,
+              label: {
+                normal: {
+                  formatter: '{b}',
+                  position: 'right',
+                  show: true
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: '#1d181a',
+                  shadowBlur: 10,
+                  shadowColor: '#333'
+                }
+              },
+              zlevel: 1
+            }
+          ]
+        };
+
+        chart.setOption(option);
+
+
+
+
+      },
+      convertData(geoCoordMap,data) {
+        let res = [];
+        for (let i = 0; i < data.length; i++) {
+          let geoCoord = geoCoordMap[data[i].name];
+          if (geoCoord) {
+            res.push({
+              name: data[i].name,
+              value: geoCoord.concat(data[i].value)
+            });
+          }
+        }
+        return res;
+      }
     }
+  }
 
 </script>
 

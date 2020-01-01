@@ -104,21 +104,6 @@ router.get("/f1_calendar_all", function(req, res, next) {
     });
 });
 
-
-router.get("/f1_alldept_", function(req, res, next) {
-    sql_operation.query(`select Money,Dept,TermNo from cost_pro`, data=>{
-        res.send(d3.nest().key(d=>d.Dept).entries(data).map(d=>{
-            return {name: d.key, children:d3.nest().key(d=>d.TermNo).entries(d.values).map(d=>{
-                    return {
-                        name:'No.'+d.key,
-                        value:d.values.length,
-                        per_cost:d3.sum(d.values,s=>parseFloat(s.Money)/d.values.length).toFixed(2)
-                    }
-                })}
-        }));
-    });
-});
-
 router.get("/f1_cost_level", function(req, res, next) {
     sql_operation.query(`select Money from cost_pro where Major = '${req.query.major}'`, data=>{
 

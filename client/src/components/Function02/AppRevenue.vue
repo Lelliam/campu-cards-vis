@@ -3,183 +3,477 @@
 </template>
 
 <script>
+  import * as d3 from 'd3'
   export default {
     name: "AppRevenue",
     mounted() {
-      this.Draw(1);
+
       this.getData();
     },
     methods:{
       getData(){
         this.$axios.get('canteen_all').then(res=>{
-          console.log(res.data);//
+          this.Draw(res.data);
         })
       },
       Draw(data){
-        let chart = this.$echarts.init(document.getElementById('revenue'));
-        data = [["2000-06-05",116],["2000-06-06",129],["2000-06-07",135],["2000-06-08",86],
-          ["2000-06-09",73],["2000-06-10",85],["2000-06-11",73],["2000-06-12",68],
-          ["2000-06-13",92],["2000-06-14",130],["2000-06-15",245],["2000-06-16",139],
-          ["2000-06-17",115],["2000-06-18",111],["2000-06-19",309],["2000-06-20",206],
-          ["2000-06-21",137],["2000-06-22",128],["2000-06-23",85],["2000-06-24",94],
-          ["2000-06-25",71],["2000-06-26",106],["2000-06-27",84],["2000-06-28",93],
-          ["2000-06-29",85],["2000-06-30",73],["2000-07-01",83],["2000-07-02",125],
-          ["2000-07-03",107],["2000-07-04",82],["2000-07-05",44],["2000-07-06",72],
-          ["2000-07-07",106],["2000-07-08",107],["2000-07-09",66],["2000-07-10",91],
-          ["2000-07-11",92],["2000-07-12",113],["2000-07-13",107],["2000-07-14",131],
-          ["2000-07-15",111],["2000-07-16",64],["2000-07-17",69],["2000-07-18",88],
-          ["2000-07-19",77],["2000-07-20",83],["2000-07-21",111],["2000-07-22",57],
-          ["2000-07-23",55],["2000-07-24",60]];
+        let color = [
+          '#38c0ff',
+          '#ff553e',
+          '#595bff',
+          '#ff740a',
+          '#47ff90',
+          '#f85fff',];
 
-        let dateList = data.map(function (item) {
-          return item[0];
-        });
-        let valueList = data.map(function (item) {
-          return item[1];
-        });
+        let chart = this.$echarts.init(document.getElementById('revenue'));
+
+        let echarts = this.$echarts;
 
         let option = {
 
           // Make gradient line here
-          visualMap: [{
-            show: false,
-            type: 'continuous',
-            seriesIndex: 0,
-            min: 0,
-            max: 400
+          visualMap: [...Array(6)].map((d,i)=>{
+            return {
+              show: false,
+              type: 'continuous',
+              seriesIndex: i,
+              min: d3.min(data[i].data,s=>parseFloat(s.value)),
+              max:d3.max(data[i].data,s=>parseFloat(s.value)),
+              color:[color[i]]
+            }
+          }),
+          title: [{
+            left: '0',
+            top:'14%',
+            text: data[0].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            },
           }, {
-            show: false,
-            type: 'continuous',
-            seriesIndex: 1,
-            dimension: 0,
-            min: 0,
-            max: dateList.length - 1
+            left: '0',
+            top:'26%',
+            text: data[1].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            }
+          }, {
+            left: '0',
+            top:'41%',
+            text: data[2].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            }
           },{
-            show: false,
-            type: 'continuous',
-            seriesIndex: 2,
-            dimension: 0,
-            min: 0,
-            max: dateList.length - 1
-          },
-            {
-              show: false,
-              type: 'continuous',
-              seriesIndex: 3,
-              dimension: 0,
-              min: 0,
-              max: dateList.length - 1
-            },
-            {
-              show: false,
-              type: 'continuous',
-              seriesIndex: 3,
-              dimension: 0,
-              min: 0,
-              max: dateList.length - 1
-            },
-            {
-              show: false,
-              type: 'continuous',
-              seriesIndex: 3,
-              dimension: 0,
-              min: 0,
-              max: dateList.length - 1
-            }],
-
+            left: '0',
+            top:'58%',
+            text: data[3].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            }
+          },{
+            left: '0',
+            top:'70%',
+            text: data[4].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            }
+          },{
+            left: '0',
+            top:'88%',
+            text: data[5].Dept,
+            textStyle: {
+              color:'#7e7e7e',
+              fontSize: 11
+            }
+          },{
+            left: '0',
+            top:'0',
+            text: '各食堂营收情况'
+          }],
           tooltip: {
             trigger: 'axis'
           },
           xAxis: [{
-            data: dateList
+            data: data[0].data.map(d=>d.date),
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           }, {
-            data: dateList,
+            data: data[1].data.map(d=>d.date),
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 1
           },{
-            data: dateList,
-            gridIndex: 2
+            data: data[2].data.map(d=>d.date),
+            gridIndex: 2,
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           },{
-            data: dateList,
-            gridIndex: 3
+            data: data[3].data.map(d=>d.date),
+            gridIndex: 3,
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           },{
-            data: dateList,
-            gridIndex: 4
+            data: data[4].data.map(d=>d.date),
+            gridIndex: 4,
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           },{
-            data: dateList,
-            gridIndex: 5
+            data: data[5].data.map(d=>d.date),
+            gridIndex: 5,
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           }],
           yAxis: [{
-            splitLine: {show: false}
+            splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            }
           }, {
             splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false,
+              lineStyle: {
+                color: '#7e7e7e'
+              }
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 1
           },{
             splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 2
           },{
             splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 3
           },{
             splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 4
           },{
             splitLine: {show: false},
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show:false
+            },
+            axisLabel: {
+              show:false,
+              margin: 10,
+              textStyle: {
+                color:'#7e7e7e',
+                fontSize: 11
+              }
+            },
             gridIndex: 5
           }],
           grid: [{
-            bottom: '85%'
+            top: '10%',
+            left:'15%',
+            bottom:'80%'
           }, {
-            top: '85%'
+            top: '85%',
+            left:'15%',
+            bottom:'5%'
           },{
             top: '25%',
-            bottom: '65%'
+            bottom: '65%',
+            left:'15%',
           },{
             top: '40%',
-            bottom: '50%'
+            bottom: '50%',
+            left:'15%',
           },{
+            left:'15%',
             top: '55%',
             bottom: '35%'
           },{
+            left:'15%',
             top: '70%',
             bottom: '20%'
           }],
           series: [{
             type: 'line',
             showSymbol: false,
-            data: valueList
+            data: data[0].data.map(d=>d.value),
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           }, {
             type: 'line',
             showSymbol: false,
-            data: valueList,
+            data: data[1].data.map(d=>d.value),
             xAxisIndex: 1,
-            yAxisIndex: 1
+            yAxisIndex: 1,
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           },{
             type: 'line',
             showSymbol: false,
-            data: valueList,
+            data: data[2].data.map(d=>d.value),
             xAxisIndex: 2,
-            yAxisIndex: 2
+            yAxisIndex: 2,
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           },{
             type: 'line',
             showSymbol: false,
-            data: valueList,
+            data: data[3].data.map(d=>d.value),
             xAxisIndex: 3,
-            yAxisIndex: 3
+            yAxisIndex: 3,
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           },{
             type: 'line',
             showSymbol: false,
-            data: valueList,
+            data: data[4].data.map(d=>d.value),
             xAxisIndex: 4,
-            yAxisIndex: 4
+            yAxisIndex: 4,
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           },{
             type: 'line',
             showSymbol: false,
-            data: valueList,
+            data: data[5].data.map(d=>d.value),
             xAxisIndex: 5,
-            yAxisIndex: 5
+            yAxisIndex: 5,
+            lineStyle:{
+              normal:{
+                width:1,
+                opacity:.8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: 'rgba(199, 237, 250,0.5)'
+                }, {
+                  offset: 1,
+                  color: 'rgba(255,255,255,0.1)'
+                }], false)
+              }
+            }
           }]
         };
-
 
         chart.setOption(option);
       },
