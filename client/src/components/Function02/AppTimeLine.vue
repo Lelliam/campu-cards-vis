@@ -13,196 +13,100 @@
 
         let chart = this.$echarts.init(document.getElementById('time_line'));
 
-        //如果是十分钟折线图，那么横坐标就没多少意义了
-        let xData = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"];
-        let yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16];
-        let yData3 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData4 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData5 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-        let yData6 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
-
-        let option = {
-          title: {
-            top: '0',
-            left: 'center',
-            text: '各食堂消费次数与时间的关系（时间间隔10min）',
-            textStyle: {
-              align: 'center',
-              color: '#ff86ac',
-              fontSize: 15
-            }
-
-          },
-            //视图主要背景
-            // backgroundColor: '#043491',
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross'
-            }
-          },
-          legend: {
-            x: 'center',
-            y: '40px',
-            textStyle: {
-              color: '#f23a5d',
-              fontSize: 13,
-            },
-            icon: 'circle',
-            data: ['第一食堂', '第二食堂','第三食堂','第四食堂','第五食堂','教师食堂']
-          },
-          dataZoom: [{
-            type: 'slider',
-            show: true,
-            height: 20,
-            left: '10%',
-            right: '10%',
-            bottom: '2%',
-            start: 50,
-            end: 100,
-            textStyle: {
-              color: '#d4ffff',
-              fontSize: 11,
-            },
-          }, {
-            type: 'inside'
-          }
-
-          ],
-          grid: {
-            right: '5%',
-            bottom: '10%',
-            left: '2%',
-            top: '80px',
-            containLabel: true
-          },
-          xAxis: [{
-            type: 'category',
-            data: xData,
-            name: '时间',
-            nameTextStyle: {
-              color: '#2314ff'
-            },
-            axisLine: {
-              lineStyle: {
-              color: '#0B4CA9'
-              }
-            },
-            axisTick: {
-              show: false,
-            },
-            axisLabel: {
-              show: true,
-              textStyle: {
-                color: "#FFF",
-                fontSize: 12,
-              },
-              //interval:0,
-              //rotate:30
-            },
-          }],
-          yAxis: [{
-            type: 'value',
-            name: '次数',
-            nameTextStyle: {
-              color: '#d4ffff'
-            },
-            position: 'left',
-            axisLine: {
-              lineStyle: {
-                color: '#0B4CA9'
-
-              }
-            },
-            splitLine: {
-              lineStyle: {
-                color: "#0B4CA9",
-              }
-
-            },
-            axisLabel: {
-              color: '#d4ffff',
-              fontSize: 12,
-            }
-          }, ],
-          series: [{
-            name: '第一食堂',
-            type: 'line',
-            yAxisIndex: 0,
-            symbolSize: 12,
-            itemStyle: {
-              normal: {
-                color: '#FC30EE',
-              }
-            },
-            data: yData1
-          },
-            {
-              name: '第二食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                normal: {
-                  color: '#0EF100',
-                }
-              },
-              data: yData2
-            },
-              {
-              name: '第三食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#83fcc9',
+          let option = {
+              title: {
+                  top: '0',
+                  //left: 'center',
+                  text: '各时刻就餐人数对比图',
+                  textStyle: {
+                      align: 'center',
+                      color: '#060204',
+                      fontSize: 15
                   }
               },
-              data: yData3
-          },
-           {
-              name: '第四食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#3539fc',
-                  }
+              tooltip : {
+                  trigger: 'axis'
               },
-              data: yData4
-          },
-            {
-              name: '第五食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#e6eefc',
-                  }
+              legend: {
+                  data:['第一食堂','第二食堂','第三食堂','第四食堂','第五食堂','教师食堂']
               },
-              data: yData5
-          },
-            {
-              name: '教师食堂',
-              type: 'line',
-              yAxisIndex: 0,
-              symbolSize: 12,
-              itemStyle: {
-                  normal: {
-                      color: '#55fc27',
-                  }
+              grid: {
+                  left: '3%',
+                  right: '4%',
+                  bottom: '3%',
+                  containLabel: true
               },
-              data: yData6
-          },
+              xAxis : [
+                  {
+                      type : 'category',
+                      boundaryGap : false,
+                      data : ['周一','周二','周三','周四','周五','周六','周日']
+                  }
+              ],
+              yAxis : [
+                  {
+                      type : 'value'
+                  }
+              ],
+              series : [
+                  {
+                      name:'第一食堂',
+                      type:'line',
+                      //stack: '总量',
+                      areaStyle: {normal: {}},
+                      data:[120, 132, 101, 134, 90, 230, 210]
+                  },
+                  {
+                      name:'第二食堂',
+                      type:'line',
+                      //stack: '总量',
+                      areaStyle: {normal: {}},
+                      data:[220, 182, 191, 234, 290, 330, 310]
+                  },
+                  {
+                      name:'第三食堂',
+                      type:'line',
+                      //stack: '总量',
+                      areaStyle: {normal: {}},
+                      data:[150, 232, 201, 154, 190, 330, 410]
+                  },
+                  {
+                      name:'第四食堂',
+                      type:'line',
+                      //stack: '总量',
+                      areaStyle: {normal: {}},
+                      data:[320, 332, 301, 334, 390, 330, 320,800]
+                  },
+                  {
+                      name:'第五食堂',
+                      type:'line',
+                      // stack: '总量',
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'top'
+                          }
+                      },
+                      areaStyle: {normal: {}},
+                      data:[820, 932, 901, 934, 1290, 1330, 1320]
+                  },
+                  {
+                      name:'教师食堂',
+                      type:'line',
+                      // stack: '总量',
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'top'
+                          }
+                      },
+                      areaStyle: {normal: {}},
+                      data:[200 ,400, 600, 800, 850, 900, 950]
+                  }
+              ]
+          };
 
-          ]
-        };
-
-        chart.setOption(option);
+          chart.setOption(option);
 
       },
       init(){
@@ -227,6 +131,6 @@
     left: 20%;
     width: 60%;
     height: 40%;
-   // background-color: #8284ff;
+   // background-color: #83fcc9;
   }
 </style>
