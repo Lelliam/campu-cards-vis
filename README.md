@@ -29,20 +29,6 @@
 >
 >
 ```
-//数据查询示例
-mounted(){
-    this.init();
-},
-methods:{
-    init(){
-        this.$http('query',{params:{
-            sql:`select * from students` //SQL查询语句
-        }}).then(res=>{
-            console.log(res.body); //响应数据
-        });
-    }
-}
-```
 ![image_1](client/src/assets/image_1.png)
 ![image](client/src/assets/image.png)
 ![image_2](client/src/assets/image_2.png)
