@@ -1,6 +1,8 @@
  
 ## Data Visualization System
 
+![](client/src/assets/system.png)
+
 ### 环境配置
 
 > 1.安装git、nodejs、WebStorm
